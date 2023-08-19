@@ -7,3 +7,8 @@
     text-align: right;
     font-family: IRANSans, serif;
 }
+
+.bg-gray{
+    background-color: #404E67;
+    color: #dcdcdc;
+}
