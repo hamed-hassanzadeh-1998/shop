@@ -1,4 +1,4 @@
-.header{
+.header {
     position: fixed;
     top: 0;
     right: 0;
@@ -10,54 +10,99 @@
     z-index: 1000;
     align-items: stretch;
 }
-.logo{
- max-height: 3.5rem;
- }
-.sidebar-header{
+
+.logo {
+    max-height: 3.5rem;
+}
+
+.sidebar-header {
     flex: 0 0 14rem;
 }
-.body-header{
+
+.body-header {
     background-color: #ffffff;
     width: calc(100% - 14rem);
     background-color: gray;
 }
-.search-area{
+
+.search-area {
     background-color: #dcdcdc;
     padding: .3rem .6rem;
     border-radius: 2rem;
 }
 
-.search-input{
-    background-color: rgba(0,0,0,0);
+.search-input {
+    background-color: rgba(0, 0, 0, 0);
     border: none;
     outline: none;
     margin: 0 .6rem;
 }
-.header-notification{
+
+.header-notification {
     position: absolute;
     left: 0;
     width: 16rem;
     margin-top: .2rem;
     background-color: white;
     color: #000000;
-    box-shadow: 0 1px 20px 0 rgba(70,90,100,.08);
+    box-shadow: 0 1px 20px 0 rgba(70, 90, 100, .08);
     display: none;
 }
-.notification-img{
+
+.notification-img {
     width: 3rem;
     border-radius: .1rem;
 }
-.notification-user{
+
+.notification-user {
     font-size: .8rem;
     font-weight: bold;
     margin-top: .3rem;
 }
-.notification-text{
-    font-size:.7rem;
+
+.notification-text {
+    font-size: .7rem;
     line-height: .7rem;
 }
-.notification-time{
+
+.notification-time {
     font-size: .6rem;
     line-height: .6rem;
     color: #919aa3;
+}
+
+.header-comment {
+    position: absolute;
+    height: calc(100vh - 3.5rem);
+   width: 18rem;
+    background-color: white;
+    color: black;
+    box-shadow: 0 1px 20px 0 rgba(70, 90, 100, .08);
+    border-right:1px solid rgba(0,0,0,.125);
+    display: none;
+}
+.header-comment-wrapper{
+    height:calc(100% - 6rem) ;
+    overflow: auto;
+}
+.header-comment-wrapper::-webkit-scrollbar{
+    display: none;
+}
+.comment-user{
+    font-size: .75rem;
+    font-weight: bold;
+    margin-top: .8rem;
+}
+.comment-user-status{
+    font-size: .4rem;
+}
+.header-avatar{
+    width: 2rem;
+    height: 2rem;
+    border-radius: .3rem;
+    margin: .2rem;
+}
+.header-user{
+    color: #333333;
+    font-size: .8rem;
 }
