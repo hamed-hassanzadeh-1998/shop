@@ -78,4 +78,25 @@ $(document).ready(function(){
         }
     });
 
+
+    $('#full-screen').click(function () {
+        toggleFullScreen();
+    });
+
+    function toggleFullScreen()
+    {
+       if((document.fullscreenElement && document.fullscreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)){
+           if(document.documentElement.requestFullscreen){
+               document.documentElement.requestFullscreen();
+           }
+           else if(document.documentElement.mozRequestFullscreen){
+               document.documentElement.mozRequestFullscreen();
+           }
+           else if(document.documentElement.webkitRequestFullscreen){
+               document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+           }
+            $('#screen-compress').removeClass('d-none');
+            $('#screen-expand').addClass('d-none');
+       }
+    }
 })
