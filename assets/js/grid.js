@@ -85,7 +85,7 @@ $(document).ready(function(){
 
     function toggleFullScreen()
     {
-       if((document.fullscreenElement && document.fullscreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)){
+       if((document.fullScreenElement && document.fullScreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)){
            if(document.documentElement.requestFullscreen){
                document.documentElement.requestFullscreen();
            }
@@ -97,6 +97,19 @@ $(document).ready(function(){
            }
             $('#screen-compress').removeClass('d-none');
             $('#screen-expand').addClass('d-none');
+       }
+       else{
+           if (document.cancelFullScreen){
+                document.cancelFullScreen();
+           }
+           else if(document.mozCancelFullScreen){
+               document.mozCancelFullScreen();
+           }
+           else if(document.webkitCancelFullScreen){
+               document.webkitCancelFullScreen();
+           }
+           $('#screen-expand').removeClass('d-none');
+           $('#screen-compress').addClass('d-none');
        }
     }
 })
