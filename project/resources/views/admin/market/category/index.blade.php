@@ -21,7 +21,7 @@
                         دسته بندی
                     </h5>
                     <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                        <a href="#" class="btn btn-info btn-sm rounded">ایجاد دسته بندی</a>
+                        <a href="{{route('admin.market.category.create')}}" class="btn btn-info btn-sm rounded">ایجاد دسته بندی</a>
                         <div class="max-width-16-rem">
                             <input class="form-control form-text form-control-sm" type="text" placeholder="جستجو...">
                         </div>
