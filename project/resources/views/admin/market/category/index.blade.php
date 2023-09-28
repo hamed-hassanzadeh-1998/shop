@@ -7,9 +7,9 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item font-size-12"><a href="#">خانه</a></li>
-            <li class="breadcrumb-item font-size-12"><a href="#">بخش فروش</a></li>
-            <li class="breadcrumb-item active font-size-12" aria-current="page">دسته بندی</li>
+            <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
+            <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
+            <li class="breadcrumb-item active font-size-12" aria-current="page"> دسته بندی </li>
         </ol>
     </nav>
 
@@ -20,9 +20,9 @@
                     <h5>
                         دسته بندی
                     </h5>
-                    <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom">
+                    <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                         <a href="#" class="btn btn-info btn-sm rounded">ایجاد دسته بندی</a>
-                        <div class="width-16-rem">
+                        <div class="max-width-16-rem">
                             <input class="form-control form-text form-control-sm" type="text" placeholder="جستجو...">
                         </div>
                     </section>
@@ -33,7 +33,7 @@
                                 <th>#</th>
                                 <th>نام دسته بندی</th>
                                 <th>دسته والد</th>
-                                <th><i class="fa fa-cogs"></i>تنظیمات</th>
+                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -41,30 +41,30 @@
                                 <th>1</th>
                                 <td>نمایشگر</td>
                                 <td>کالای الکترونیکی</td>
-                                <td>
+                                <td class="width-16-rem text-left">
                                     <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i>ویرایش</a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i>حذف </button>
+                                            class="fa fa-edit"></i> ویرایش </a>
+                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
                                 </td>
                             </tr>
                             <tr>
                                 <th>2</th>
                                 <td>نمایشگر</td>
                                 <td>کالای الکترونیکی</td>
-                                <td>
+                                <td class="width-16-rem text-left">
                                     <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i>ویرایش</a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i>حذف </button>
+                                            class="fa fa-edit"></i> ویرایش </a>
+                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
                                 </td>
                             </tr>
                             <tr>
                                 <th>3</th>
                                 <td>نمایشگر</td>
                                 <td>کالای الکترونیکی</td>
-                                <td>
+                                <td class="width-16-rem text-left">
                                     <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i>ویرایش</a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i>حذف </button>
+                                            class="fa fa-edit"></i> ویرایش </a>
+                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
                                 </td>
                             </tr>
                             </tbody>
