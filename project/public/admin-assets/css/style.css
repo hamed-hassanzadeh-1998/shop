@@ -50,3 +50,6 @@
 .main-body{
     font-size: .8rem;
 }
+.max-height-2-rem{
+    max-height: 2rem;
+}
