@@ -43,7 +43,7 @@
                         <section class="col-12">
                             <div class="form-group">
                                 <label for="">پاسخ ادمین</label>
-                               ‍<textarea class="form-control form-control-sm" rows="4"></textarea>
+                               <textarea class="form-control form-control-sm" rows="4"></textarea>
                             </div>
                         </section>
                         <section class="col-12">
