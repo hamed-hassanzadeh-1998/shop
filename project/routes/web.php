@@ -67,7 +67,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::put('/update/{id}', [DeliveryController::class, 'update'])->name('admin.market.delivery.update');
             Route::delete('/destroy/{id}', [DeliveryController::class, 'destroy'])->name('admin.market.delivery.destroy');
         });
-
         //discount
         Route::prefix('discount')->group(function () {
             Route::get('/coupon', [DiscountController::class, 'coupon'])->name('admin.market.discount.coupon');
