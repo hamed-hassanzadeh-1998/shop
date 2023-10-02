@@ -76,6 +76,68 @@
                                    </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <th>1</th>
+                                <td>9908-3363699</td>
+                                <td>381,000 تومان</td>
+                                <td>34,000 تومان</td>
+                                <td>347,000 تومان</td>
+                                <td>پرداخت شده</td>
+                                <td>آنلاین</td>
+                                <td>ملت</td>
+                                <td>در حال ارسال</td>
+                                <td>پیک موتوری</td>
+                                <td>تحویل شده</td>
+                                <td class="width-8-rem text-left">
+                                   <div class="dropdown">
+                                       <a href="#"
+                                          class="btn btn-sm btn-success btn-block dropdown-toggle"
+                                          role="button"
+                                          id="dropdownMenuLink"
+                                          data-toggle="dropdown"
+                                       aria-expanded="false">
+                                           <i class="fa fa-tools"></i> عملیات
+                                       </a>
+                                       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                           <a href="" class="dropdown-item text-right align-items-center justify-content-between"><i class="fa fa-images"></i> مشاهده فاکتور</a>
+                                           <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> تغییر وضعیت ارسال</a>
+                                           <a href="" class="dropdown-item text-right"><i class="fa fa-edit"></i> تغییر وضعیت سفارش</a>
+                                           <a href="" class="dropdown-item text-right"><i class="fa fa-window-close"></i> باطل کردن سفارش</a>
+                                       </div>
+                                   </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>1</th>
+                                <td>9908-3363699</td>
+                                <td>381,000 تومان</td>
+                                <td>34,000 تومان</td>
+                                <td>347,000 تومان</td>
+                                <td>پرداخت شده</td>
+                                <td>آنلاین</td>
+                                <td>ملت</td>
+                                <td>در حال ارسال</td>
+                                <td>پیک موتوری</td>
+                                <td>تحویل شده</td>
+                                <td class="width-8-rem text-left">
+                                   <div class="dropdown">
+                                       <a href="#"
+                                          class="btn btn-sm btn-success btn-block dropdown-toggle"
+                                          role="button"
+                                          id="dropdownMenuLink"
+                                          data-toggle="dropdown"
+                                       aria-expanded="false">
+                                           <i class="fa fa-tools"></i> عملیات
+                                       </a>
+                                       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                           <a href="" class="dropdown-item text-right align-items-center justify-content-between"><i class="fa fa-images"></i> مشاهده فاکتور</a>
+                                           <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> تغییر وضعیت ارسال</a>
+                                           <a href="" class="dropdown-item text-right"><i class="fa fa-edit"></i> تغییر وضعیت سفارش</a>
+                                           <a href="" class="dropdown-item text-right"><i class="fa fa-window-close"></i> باطل کردن سفارش</a>
+                                       </div>
+                                   </div>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </section>
