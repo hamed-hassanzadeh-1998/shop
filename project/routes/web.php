@@ -6,7 +6,10 @@ use App\Http\Controllers\Admin\Market\CategoryController;
 use App\Http\Controllers\Admin\Market\CommentController;
 use App\Http\Controllers\Admin\Market\DeliveryController;
 use App\Http\Controllers\Admin\Market\DiscountController;
+use App\Http\Controllers\Admin\Market\GalleryController;
 use App\Http\Controllers\Admin\market\OrderController;
+use App\Http\Controllers\Admin\Market\PaymentController;
+use App\Http\Controllers\Admin\Market\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -89,6 +92,27 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/change-send-status', [OrderController::class, 'changeSendStatus'])->name('admin.market.order.changeSendStatus');
             Route::get('/change-order-status', [OrderController::class, 'changeOrderStatus'])->name('admin.market.order.changeOrderStatus');
             Route::get('/cancel-order', [OrderController::class, 'cancelOrder'])->name('admin.market.order.cancelOrder');
+        });
+        //payment
+        Route::prefix('payment')->group(function(){
+            Route::get('/', [PaymentController::class, 'index'])->name('admin.market.payment.index');
+            Route::get('/online', [PaymentController::class, 'online'])->name('admin.market.payment.online');
+            Route::get('/offline', [PaymentController::class, 'offline'])->name('admin.market.payment.offline');
+            Route::get('/attendance', [PaymentController::class, 'attendance'])->name('admin.market.payment.attendance');
+            Route::get('/confirm', [PaymentController::class, 'confirm'])->name('admin.market.payment.confirm');
+        });
+        //product
+        Route::prefix('product')->group(function () {
+            Route::get('/', [ProductController::class, 'index'])->name('admin.market.product.index');
+            Route::get('/create', [ProductController::class, 'create'])->name('admin.market.product.create');
+            Route::post('/store', [ProductController::class, 'store'])->name('admin.market.product.store');
+            Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('admin.market.product.edit');
+            Route::put('/update/{id}', [ProductController::class, 'update'])->name('admin.market.product.update');
+            Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('admin.market.product.destroy');
+            //gallery
+            Route::get('/gallery', [GalleryController::class, 'index'])->name('admin.market.gallery.index');
+            Route::post('/gallery/store', [GalleryController::class, 'store'])->name('admin.market.gallery.store');
+            Route::delete('/gallery/destroy/{id}', [GalleryController::class, 'destroy'])->name('admin.market.gallery.destroy');
         });
     });
 });
