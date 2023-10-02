@@ -8,7 +8,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
-            <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
+            <li class="breadcrumb-item font-size-12"> <a href="#"> کالا </a></li>
             <li class="breadcrumb-item active font-size-12" aria-current="page"> محصولات </li>
         </ol>
     </nav>
@@ -21,7 +21,7 @@
                         محصولات
                     </h5>
                     <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                        <a href="{{route('admin.market.product.create')}}" class="btn btn-info btn-sm rounded disabled">ایجاد محصول جدید</a>
+                        <a href="{{route('admin.market.product.create')}}" class="btn btn-info btn-sm rounded">ایجاد محصول جدید</a>
                         <div class="max-width-16-rem">
                             <input class="form-control form-text form-control-sm" type="text" placeholder="جستجو...">
                         </div>
