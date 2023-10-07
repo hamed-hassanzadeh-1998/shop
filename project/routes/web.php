@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\StoreController;
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\SMSController;
+use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\User\AdminController;
 use App\Http\Controllers\Admin\User\CustomerController;
@@ -279,6 +280,17 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/edit/{id}', [TicketController::class, 'edit'])->name('admin.ticket.edit');
             Route::put('/update/{id}', [TicketController::class, 'update'])->name('admin.ticket.update');
             Route::delete('/destroy/{id}', [TicketController::class, 'destroy'])->name('admin.ticket.destroy');
+        });
+    });//tickets
+    Route::prefix('setting')->namespace('Setting')->group(function (){
+        //Ticket
+        Route::prefix('setting')->group(function () {
+            Route::get('/', [SettingController::class, 'index'])->name('admin.setting.index');
+            Route::get('/create', [SettingController::class, 'create'])->name('admin.setting.create');
+            Route::post('/store', [SettingController::class, 'store'])->name('admin.setting.store');
+            Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('admin.setting.edit');
+            Route::put('/update/{id}', [SettingController::class, 'update'])->name('admin.setting.update');
+            Route::delete('/destroy/{id}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
         });
     });
 });
