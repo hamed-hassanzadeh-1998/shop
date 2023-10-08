@@ -119,6 +119,15 @@
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/laravel/sanctum" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/laravel/serializable-closure" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/laravel/tinker" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/jenssegers/agent" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/pragmarx/google2fa" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/jaybizzle/crawler-detect" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/paragonie/constant_time_encoding" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/bacon/bacon-qr-code" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/mobiledetect/mobiledetectlib" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/laravel/fortify" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/laravel/jetstream" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/dasprid/enum" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
