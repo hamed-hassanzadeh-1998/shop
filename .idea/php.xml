@@ -132,7 +132,6 @@
       <path value="$PROJECT_DIR$/project/vendor/laravel/fortify" />
       <path value="$PROJECT_DIR$/project/vendor/laravel/jetstream" />
       <path value="$PROJECT_DIR$/project/vendor/dasprid/enum" />
-      <path value="$PROJECT_DIR$/project/vendor/livewire/livewire" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
