@@ -128,6 +128,7 @@
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/laravel/fortify" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/laravel/jetstream" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/dasprid/enum" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/livewire/livewire" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
