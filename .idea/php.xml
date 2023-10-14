@@ -81,7 +81,6 @@
       <path value="$PROJECT_DIR$/project/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/project/vendor/guzzlehttp/psr7" />
       <path value="$PROJECT_DIR$/project/vendor/guzzlehttp/uri-template" />
-      <path value="$PROJECT_DIR$/project/vendor/nunomaduro/collision" />
       <path value="$PROJECT_DIR$/project/vendor/nunomaduro/termwind" />
       <path value="$PROJECT_DIR$/project/vendor/tijsverkoyen/css-to-inline-styles" />
       <path value="$PROJECT_DIR$/project/vendor/dragonmantank/cron-expression" />
@@ -98,7 +97,6 @@
       <path value="$PROJECT_DIR$/project/vendor/filp/whoops" />
       <path value="$PROJECT_DIR$/project/vendor/voku/portable-ascii" />
       <path value="$PROJECT_DIR$/project/vendor/brick/math" />
-      <path value="$PROJECT_DIR$/project/vendor/nette/schema" />
       <path value="$PROJECT_DIR$/project/vendor/nette/utils" />
       <path value="$PROJECT_DIR$/project/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/project/vendor/league/commonmark" />
@@ -116,9 +114,6 @@
       <path value="$PROJECT_DIR$/project/vendor/vlucas/phpdotenv" />
       <path value="$PROJECT_DIR$/project/vendor/dflydev/dot-access-data" />
       <path value="$PROJECT_DIR$/project/vendor/egulias/email-validator" />
-      <path value="$PROJECT_DIR$/project/vendor/laravel/framework" />
-      <path value="$PROJECT_DIR$/project/vendor/laravel/pint" />
-      <path value="$PROJECT_DIR$/project/vendor/laravel/prompts" />
       <path value="$PROJECT_DIR$/project/vendor/laravel/sail" />
       <path value="$PROJECT_DIR$/project/vendor/laravel/sanctum" />
       <path value="$PROJECT_DIR$/project/vendor/laravel/serializable-closure" />
@@ -132,6 +127,11 @@
       <path value="$PROJECT_DIR$/project/vendor/laravel/fortify" />
       <path value="$PROJECT_DIR$/project/vendor/laravel/jetstream" />
       <path value="$PROJECT_DIR$/project/vendor/dasprid/enum" />
+      <path value="$PROJECT_DIR$/project/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/project/vendor/laravel/pint" />
+      <path value="$PROJECT_DIR$/project/vendor/laravel/prompts" />
+      <path value="$PROJECT_DIR$/project/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/project/vendor/nette/schema" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
