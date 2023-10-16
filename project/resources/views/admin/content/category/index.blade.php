@@ -37,6 +37,7 @@
                                 <th>اسلاگ</th>
                                 <th>عکس</th>
                                 <th>تگ ها</th>
+                                <th>وضعیت</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                             </thead>
@@ -51,10 +52,19 @@
                                     <img src="{{$postCategory->image}}" width="50" height="50" alt="">
                                 </td>
                                 <td>{{$postCategory->tags}}</td>
+                                <td>
+                                    <label for="status">
+                                        <input id="status" type="checkbox"  @if($postCategory->status == 1) checked @endif>
+                                    </label>
+                                </td>
                                 <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
+                                    <a href="{{route('admin.content.category.edit',$postCategory->id)}}" class="btn btn-sm btn-primary align-items-center"><i
                                             class="fa fa-edit"></i> ویرایش </a>
+                                    <form class="d-inline" action="{{route('admin.content.category.destroy',$postCategory->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
                                     <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
