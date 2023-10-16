@@ -22,21 +22,40 @@
                         <a href="{{route('admin.content.category.index')}}" class="btn btn-info btn-sm rounded">بازگشت</a>
                     </section>
                     <section>
-                        <form action="" method="">
+                        <form action="{{route('admin.content.category.store')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <section class="row">
                                 <section class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="">نام دسته</label>
-                                        <input type="text" class="form-control form-control-sm">
+                                        <label for="name">نام دسته</label>
+                                        <input id="name" type="text" name="name" class="form-control form-control-sm">
                                     </div>
                                 </section>
                                 <section class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="">دسته والد</label>
-                                        <select name="" id="" class="form-control form-control-sm">
-                                            <option value="">دسته را انتخاب کنید</option>
-                                            <option value="">وسایل الکترونیکی</option>
+                                        <label for="tags">تگ ها</label>
+                                        <input id="tags" type="text" name="tags" class="form-control form-control-sm">
+                                    </div>
+                                </section>
+                                <section class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="status">وضعیت</label>
+                                        <select name="status" id="status" class="form-control form-control-sm">
+                                            <option value="0">غیرفعال</option>
+                                            <option value="1">فعال</option>
                                         </select>
+                                    </div>
+                                </section>
+                                <section class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="image">تصویر</label>
+                                        <input id="image" type="file" name="image" class="form-control form-control-sm">
+                                    </div>
+                                </section>
+                                <section class="col-12">
+                                    <div class="form-group">
+                                        <label for="body">توضیحات</label>
+                                        <textarea name="description" id="body" rows="10"></textarea>
                                     </div>
                                 </section>
                                 <section class="col-12">
@@ -50,4 +69,10 @@
         </section>
     </section>
 
+@endsection
+@section('script')
+    <script src="{{asset('admin-assets/ckeditor/ckeditor.js')}}"></script>
+    <script>
+        CKEDITOR.replace('body')
+    </script>
 @endsection
