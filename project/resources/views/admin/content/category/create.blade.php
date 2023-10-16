@@ -25,40 +25,72 @@
                         <form action="{{route('admin.content.category.store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <section class="row">
-                                <section class="col-12 col-md-6">
+                                <section class="col-12 col-md-6 my-2">
                                     <div class="form-group">
                                         <label for="name">نام دسته</label>
-                                        <input id="name" type="text" name="name" class="form-control form-control-sm">
+                                        <input id="name" type="text" name="name" class="form-control form-control-sm" value="{{old('name')}}">
                                     </div>
+                                    @error('name')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>{{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
-                                <section class="col-12 col-md-6">
+                                <section class="col-12 col-md-6 my-2">
                                     <div class="form-group">
                                         <label for="tags">تگ ها</label>
-                                        <input id="tags" type="text" name="tags" class="form-control form-control-sm">
+                                        <input id="tags" type="text" name="tags" class="form-control form-control-sm" value="{{old('tags')}}">
                                     </div>
+                                    @error('tags')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>{{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
-                                <section class="col-12 col-md-6">
+                                <section class="col-12 col-md-6 my-2">
                                     <div class="form-group">
                                         <label for="status">وضعیت</label>
                                         <select name="status" id="status" class="form-control form-control-sm">
-                                            <option value="0">غیرفعال</option>
-                                            <option value="1">فعال</option>
+                                            <option value="0" @if(old('status')==0) selected @endif>غیرفعال</option>
+                                            <option value="1" @if(old('status')==1) selected @endif>فعال</option>
                                         </select>
                                     </div>
+                                    @error('status')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>{{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
-                                <section class="col-12 col-md-6">
+                                <section class="col-12 col-md-6 my-2">
                                     <div class="form-group">
                                         <label for="image">تصویر</label>
                                         <input id="image" type="file" name="image" class="form-control form-control-sm">
                                     </div>
+                                    @error('image')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>{{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
-                                <section class="col-12">
+                                <section class="col-12 my-2">
                                     <div class="form-group">
                                         <label for="body">توضیحات</label>
-                                        <textarea name="description" id="body" rows="10"></textarea>
+                                        <textarea name="description" id="body" rows="10">
+                                            {{old('description')}}
+                                        </textarea>
                                     </div>
+                                    @error('description')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>{{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
-                                <section class="col-12">
+                                <section class="col-12 my-3">
                                     <button class="btn btn-sm btn-primary">ثبت </button>
                                 </section>
                             </section>
