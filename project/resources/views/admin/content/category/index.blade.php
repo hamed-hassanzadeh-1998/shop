@@ -23,7 +23,8 @@
                     <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                         <a href="{{route('admin.content.category.create')}}" class="btn btn-info btn-sm rounded">ایجاد دسته بندی</a>
                         <div class="max-width-16-rem">
-                            <input class="form-control form-text form-control-sm" type="text" placeholder="جستجو...">
+                            <label for="search"></label>
+                            <input id="search" class="form-control form-text form-control-sm" type="text" placeholder="جستجو...">
                         </div>
                     </section>
                     <section class="table-responsive">
@@ -32,41 +33,31 @@
                             <tr>
                                 <th>#</th>
                                 <th>نام دسته بندی</th>
-                                <th>دسته والد</th>
+                                <th>توضیحات</th>
+                                <th>اسلاگ</th>
+                                <th>عکس</th>
+                                <th>تگ ها</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($postCategories as $postCategory)
                             <tr>
-                                <th>1</th>
-                                <td>نمایشگر</td>
-                                <td>کالای الکترونیکی</td>
+                                <th>{{$postCategory->id}}</th>
+                                <td>{{$postCategory->name}}</td>
+                                <td>{{$postCategory->description}}</td>
+                                <td>{{$postCategory->slug}}</td>
+                                <td>
+                                    <img src="{{$postCategory->image}}" width="50" height="50" alt="">
+                                </td>
+                                <td>{{$postCategory->tags}}</td>
                                 <td class="width-16-rem text-left">
                                     <a href="#" class="btn btn-sm btn-primary align-items-center"><i
                                             class="fa fa-edit"></i> ویرایش </a>
                                     <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>نمایشگر</td>
-                                <td>کالای الکترونیکی</td>
-                                <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>نمایشگر</td>
-                                <td>کالای الکترونیکی</td>
-                                <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
-                                </td>
-                            </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </section>
