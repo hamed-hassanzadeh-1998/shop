@@ -7,9 +7,9 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item font-size-12"> <a href="">خانه</a></li>
-            <li class="breadcrumb-item font-size-12"> <a href="#">بخش محتوی</a></li>
-            <li class="breadcrumb-item active font-size-12" aria-current="page"> دسته بندی </li>
+            <li class="breadcrumb-item font-size-12"><a href="">خانه</a></li>
+            <li class="breadcrumb-item font-size-12"><a href="#">بخش محتوی</a></li>
+            <li class="breadcrumb-item active font-size-12" aria-current="page"> دسته بندی</li>
         </ol>
     </nav>
 
@@ -21,10 +21,12 @@
                         دسته بندی
                     </h5>
                     <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                        <a href="{{route('admin.content.category.create')}}" class="btn btn-info btn-sm rounded">ایجاد دسته بندی</a>
+                        <a href="{{route('admin.content.category.create')}}" class="btn btn-info btn-sm rounded">ایجاد
+                            دسته بندی</a>
                         <div class="max-width-16-rem">
                             <label for="search"></label>
-                            <input id="search" class="form-control form-text form-control-sm" type="text" placeholder="جستجو...">
+                            <input id="search" class="form-control form-text form-control-sm" type="text"
+                                   placeholder="جستجو...">
                         </div>
                     </section>
                     <section class="table-responsive">
@@ -43,30 +45,38 @@
                             </thead>
                             <tbody>
                             @foreach($postCategories as $postCategory)
-                            <tr>
-                                <th>{{$postCategory->id}}</th>
-                                <td>{{$postCategory->name}}</td>
-                                <td>{{$postCategory->description}}</td>
-                                <td>{{$postCategory->slug}}</td>
-                                <td>
-                                    <img src="{{$postCategory->image}}" width="50" height="50" alt="">
-                                </td>
-                                <td>{{$postCategory->tags}}</td>
-                                <td>
-                                    <label for="status">
-                                        <input id="status" type="checkbox"  @if($postCategory->status == 1) checked @endif>
-                                    </label>
-                                </td>
-                                <td class="width-16-rem text-left">
-                                    <a href="{{route('admin.content.category.edit',$postCategory->id)}}" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i> ویرایش </a>
-                                    <form class="d-inline" action="{{route('admin.content.category.destroy',$postCategory->id)}}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
-                                    </form>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <th>{{$postCategory->id}}</th>
+                                    <td>{{$postCategory->name}}</td>
+                                    <td>{{$postCategory->description}}</td>
+                                    <td>{{$postCategory->slug}}</td>
+                                    <td>
+                                        <img src="{{$postCategory->image}}" width="50" height="50" alt="">
+                                    </td>
+                                    <td>{{$postCategory->tags}}</td>
+                                    <td>
+                                        <label for="status">
+                                            <input
+                                                id="{{$postCategory->id}}"
+                                                onchange="changeStatus({{$postCategory->id}})"
+                                                type="checkbox" @if($postCategory->status == 1) checked @endif
+                                                data-url="{{route('admin.content.category.status',$postCategory->id)}}">
+                                        </label>
+                                    </td>
+                                    <td class="width-16-rem text-left">
+                                        <a href="{{route('admin.content.category.edit',$postCategory->id)}}"
+                                           class="btn btn-sm btn-primary align-items-center"><i
+                                                class="fa fa-edit"></i> ویرایش </a>
+                                        <form class="d-inline"
+                                              action="{{route('admin.content.category.destroy',$postCategory->id)}}"
+                                              method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -76,4 +86,29 @@
         </section>
     </section>
 
+@endsection
+@section('script')
+     <script type="text/javascript">
+        function changeStatus(id){
+            var element = $("#" + id)
+            var url = element.attr('data-url')
+            var elementValue = !element.prop('checked');
+
+            $.ajax({
+                url : url,
+                type : "GET",
+                success : function(response){
+                    if(response.status){
+                        if(response.checked)
+                        element.prop('checked', true);
+                        else
+                        element.prop('checked', false);
+                    }
+                    else{
+                        element.prop('checked', elementValue);
+                    }
+                }
+            })
+        }
+    </script>
 @endsection
