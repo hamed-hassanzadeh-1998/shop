@@ -22,7 +22,7 @@
                         <a href="{{route('admin.content.category.index')}}" class="btn btn-info btn-sm rounded">بازگشت</a>
                     </section>
                     <section>
-                        <form action="{{route('admin.content.category.store')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('admin.content.category.store')}}" method="POST" enctype="multipart/form-data" id="form">
                             @csrf
                             <section class="row">
                                 <section class="col-12 col-md-6 my-2">
@@ -40,7 +40,9 @@
                                 <section class="col-12 col-md-6 my-2">
                                     <div class="form-group">
                                         <label for="tags">تگ ها</label>
-                                        <input id="tags" type="text" name="tags" class="form-control form-control-sm" value="{{old('tags')}}">
+                                        <input id="tags" type="hidden" name="tags" class="form-control form-control-sm" value="{{old('tags')}}">
+                                        <select name="" class="select2 form-control form-control-sm" id="select_tags" multiple  >
+                                        </select>
                                     </div>
                                     @error('tags')
                                     <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
@@ -106,5 +108,21 @@
     <script src="{{asset('admin-assets/ckeditor/ckeditor.js')}}"></script>
     <script>
         CKEDITOR.replace('body')
+    </script>
+    <script>
+        $(document).ready(function () {
+            var tags_input=$('#tags');
+            var select_tags=$('#select_tags')
+            select_tags.select2({
+                placeholder:'لطفا تگ های خود را وارد کنید.',
+                tags:true
+            })
+            $('#form').submit(function (event) {
+                if(select_tags.val() !== null && select_tags.val().length > 0){
+                var selected_source=select_tags.val().join(',');
+                tags_input.val(selected_source);
+                }
+            })
+        })
     </script>
 @endsection
