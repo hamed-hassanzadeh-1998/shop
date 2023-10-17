@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Content;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Content\PostCategoryRequest;
 use App\Models\Content\PostCategory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -18,7 +20,7 @@ class CategoryController extends Controller
             ->orderBy('created_at', 'desc')
             ->simplePaginate(10);
 
-        return view('admin.content.category.index',compact('postCategories'));
+        return view('admin.content.category.index', compact('postCategories'));
     }
 
     /**
@@ -32,21 +34,13 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PostCategoryRequest $request)
+    public function store(PostCategoryRequest $request): RedirectResponse
     {
-        $inputs=$request->all();
-        $inputs['slug']=str_replace(' ','-',$inputs['name']).'-'.\Str::random(5);
-        $inputs['image']='image';
+        $inputs = $request->all();
+        $inputs['slug'] = str_replace(' ', '-', $inputs['name']) . '-' . \Str::random(5);
+        $inputs['image'] = 'image';
         PostCategory::create($inputs);
         return redirect()->route('admin.content.category.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -54,17 +48,16 @@ class CategoryController extends Controller
      */
     public function edit(PostCategory $postCategory)
     {
-
-        return view('admin.content.category.edit',compact('postCategory'));
+        return view('admin.content.category.edit', compact('postCategory'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(PostCategoryRequest $request, PostCategory $postCategory)
+    public function update(PostCategoryRequest $request, PostCategory $postCategory): RedirectResponse
     {
-        $inputs=$request->all();
-        $inputs['image']='image';
+        $inputs = $request->all();
+        $inputs['image'] = 'image';
         $postCategory->update($inputs);
         return redirect()->route('admin.content.category.index');
     }
@@ -72,9 +65,28 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PostCategory $postCategory)
+    public function destroy(PostCategory $postCategory): RedirectResponse
     {
         $postCategory->delete();
         return redirect()->route('admin.content.category.index');
+    }
+
+    public function status(PostCategory $postCategory): JsonResponse
+    {
+        $postCategory->status = !$postCategory->status;
+        $result = $postCategory->save();
+
+        if ($postCategory->save()) {
+            $isChecked = ($postCategory->status == 0);
+            $status = true;
+        } else {
+            $status = false;
+        }
+        $response = [
+            'status' => $status,
+            'checked' => $isChecked ?? false,
+        ];
+
+        return response()->json($response);
     }
 }

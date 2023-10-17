@@ -128,6 +128,7 @@
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/laravel/prompts" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/nunomaduro/collision" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/nette/schema" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/_laravel_idea" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
