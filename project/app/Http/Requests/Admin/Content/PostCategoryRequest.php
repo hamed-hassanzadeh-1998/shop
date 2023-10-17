@@ -35,7 +35,7 @@ class PostCategoryRequest extends FormRequest
                 'name'=>'required|max:120|min:2',
                 'description'=>'required|max:500|min:10',
                 'slug'=>'nullable',
-                'image'=>'required',
+                'image'=>'nullable',
                 'status'=>'required|numeric|in:0,1',
                 'tags'=>'required',
             ];
