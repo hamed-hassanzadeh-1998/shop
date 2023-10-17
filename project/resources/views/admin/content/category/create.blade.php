@@ -39,7 +39,7 @@
                                 </section>
                                 <section class="col-12 col-md-6 my-2">
                                     <div class="form-group">
-                                        <label for="tags">تگ ها</label>
+                                        <label for="select_tags">تگ ها</label>
                                         <input id="tags" type="hidden" name="tags" class="form-control form-control-sm" value="{{old('tags')}}">
                                         <select name="" class="select2 form-control form-control-sm" id="select_tags" multiple  >
                                         </select>
@@ -111,15 +111,25 @@
     </script>
     <script>
         $(document).ready(function () {
-            var tags_input=$('#tags');
-            var select_tags=$('#select_tags')
+            let tags_input=$('#tags')
+            let select_tags=$('#select_tags')
+
+            let default_tags=tags_input.val()
+            let default_data=null
+
+            if(tags_input.val() !== null && tags_input.val().length >0){
+                default_data=default_tags.split(',')
+            }
+
             select_tags.select2({
                 placeholder:'لطفا تگ های خود را وارد کنید.',
-                tags:true
+                tags:true,
+                data:default_data,
             })
+            select_tags.children('option').attr('selected',true).trigger('change')
             $('#form').submit(function (event) {
                 if(select_tags.val() !== null && select_tags.val().length > 0){
-                var selected_source=select_tags.val().join(',');
+               let selected_source=select_tags.val().join(',');
                 tags_input.val(selected_source);
                 }
             })

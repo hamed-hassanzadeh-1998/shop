@@ -22,7 +22,7 @@
                         <a href="{{route('admin.content.category.index')}}" class="btn btn-info btn-sm rounded">بازگشت</a>
                     </section>
                     <section>
-                        <form action="{{route('admin.content.category.update',$postCategory->id)}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('admin.content.category.update',$postCategory->id)}}" method="POST" enctype="multipart/form-data" id="form">
                             @csrf
                             @method('PUT')
                             <section class="row">
@@ -40,8 +40,10 @@
                                 </section>
                                 <section class="col-12 col-md-6 my-2">
                                     <div class="form-group">
-                                        <label for="tags">تگ ها</label>
-                                        <input id="tags" type="text" name="tags" class="form-control form-control-sm" value="{{old('tags',$postCategory->tags)}}">
+                                        <label for="select_tags">تگ ها</label>
+                                        <input id="tags" type="hidden" name="tags" class="form-control form-control-sm" value="{{old('tags',$postCategory->tags)}}">
+                                        <select name="" class="select2 form-control form-control-sm" id="select_tags" multiple  >
+                                        </select>
                                     </div>
                                     @error('tags')
                                     <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
@@ -107,5 +109,31 @@
     <script src="{{asset('admin-assets/ckeditor/ckeditor.js')}}"></script>
     <script>
         CKEDITOR.replace('body')
+    </script>
+    <script>
+        $(document).ready(function () {
+            let tags_input=$('#tags')
+            let select_tags=$('#select_tags')
+
+            let default_tags=tags_input.val()
+            let default_data=null
+
+            if(tags_input.val() !== null && tags_input.val().length >0){
+                default_data=default_tags.split(',')
+            }
+
+            select_tags.select2({
+                placeholder:'لطفا تگ های خود را وارد کنید.',
+                tags:true,
+                data:default_data,
+            })
+            select_tags.children('option').attr('selected',true).trigger('change')
+            $('#form').submit(function (event) {
+                if(select_tags.val() !== null && select_tags.val().length > 0){
+                    let selected_source=select_tags.val().join(',');
+                    tags_input.val(selected_source);
+                }
+            })
+        })
     </script>
 @endsection
