@@ -90,25 +90,25 @@
 @section('script')
      <script type="text/javascript">
         function changeStatus(id){
-            var element = $("#" + id)
-            var url = element.attr('data-url')
-            var elementValue = !element.prop('checked');
+            const element = $("#" + id)
+            const url = element.attr('data-url')
+            const elementValue = !element.prop('checked');
 
-            $.ajax({
-                url : url,
-                type : "GET",
-                success : function(response){
-                    if(response.status){
-                        if(response.checked)
-                        element.prop('checked', true);
-                        else
-                        element.prop('checked', false);
-                    }
-                    else{
-                        element.prop('checked', elementValue);
-                    }
-                }
+            fetch(url, {
+                method: 'GET'
             })
+                .then(response => response.json())
+                .then(response => {
+                    if (response.status) {
+                        element.checked = response.checked;
+                    } else {
+                        element.checked = elementValue;
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    element.checked = elementValue;
+                });
         }
     </script>
 @endsection
