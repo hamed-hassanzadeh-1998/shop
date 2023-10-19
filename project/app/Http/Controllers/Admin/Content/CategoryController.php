@@ -40,7 +40,9 @@ class CategoryController extends Controller
         $inputs['slug'] = str_replace(' ', '-', $inputs['name']) . '-' . \Str::random(5);
         $inputs['image'] = 'image';
         PostCategory::create($inputs);
-        return redirect()->route('admin.content.category.index')->with('swal-success','دسته بندی جدید شما با موفقیت ثبت شد.')->with('toast-success','دسته بندی جدید شما با موفقیت ثبت شد.')->with('alert-section-success','دسته بندی جدید شما با موفقیت ثبت شد.');
+        return redirect()->
+        route('admin.content.category.index')
+            ->with('swal-success', 'دسته بندی جدید شما با موفقیت ثبت شد.');
     }
 
     /**
@@ -59,7 +61,7 @@ class CategoryController extends Controller
         $inputs = $request->all();
         $inputs['image'] = 'image';
         $postCategory->update($inputs);
-        return redirect()->route('admin.content.category.index');
+        return redirect()->route('admin.content.category.index')->with('swal-success','دسته بندی شما با موفقیت به روز رسانی شد.');
     }
 
     /**
@@ -68,15 +70,15 @@ class CategoryController extends Controller
     public function destroy(PostCategory $postCategory): RedirectResponse
     {
         $postCategory->delete();
-        return redirect()->route('admin.content.category.index');
+        return redirect()->route('admin.content.category.index')->with('swal-success','دسته بندی شما با موفقیت حذف شد.');
     }
 
     public function status(PostCategory $postCategory): JsonResponse
     {
         $postCategory->status = $postCategory->status === 0 ? 1 : 0;
         $result = $postCategory->save();
-        if($result){
-            if($postCategory->status === 0){
+        if ($result) {
+            if ($postCategory->status === 0) {
                 return response()->json(['status' => true, 'checked' => false]);
             }
 

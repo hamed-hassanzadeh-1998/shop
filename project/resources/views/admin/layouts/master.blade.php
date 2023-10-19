@@ -16,6 +16,12 @@
 </section>
 @include('admin.layouts.scripts')
 @yield('script')
+<section class="toast-wrapper flex-row-reverse">
+    @include('admin.alert.toast.success')
+    @include('admin.alert.toast.error')
+</section>
+@include('admin.alert.sweatalert.error')
+@include('admin.alert.sweatalert.success')
 </body>
 
 </html>
