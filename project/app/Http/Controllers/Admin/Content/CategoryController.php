@@ -37,7 +37,6 @@ class CategoryController extends Controller
     public function store(PostCategoryRequest $request): RedirectResponse
     {
         $inputs = $request->all();
-        $inputs['slug'] = str_replace(' ', '-', $inputs['name']) . '-' . \Str::random(5);
         $inputs['image'] = 'image';
         PostCategory::create($inputs);
         return redirect()->
