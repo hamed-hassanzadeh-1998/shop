@@ -74,7 +74,7 @@
                                           method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف
+                                        <button class="btn btn-sm btn-danger delete"><i class="fa fa-trash-alt"></i> حذف
                                         </button>
                                     </form>
                                 </td>
@@ -149,4 +149,5 @@
             }
         }
     </script>
+    @include('admin.alert.sweatalert.delete-confirm',['className'=>'delete'])
 @endsection
