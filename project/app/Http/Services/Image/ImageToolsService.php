@@ -162,7 +162,7 @@ class ImageToolsService
         //check Image name exist
             $this->getImageName() ??
             $this->setImageName(time());;
-        //check Image name exist
+        //check Image format exist
             $this->getImageFormat() ??
             $this->setImageName($this->image->extension());;
 
