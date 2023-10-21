@@ -34,7 +34,7 @@ class ImageToolsService
      */
     public function setExclusiveDirectory($exclusiveDirectory): void
     {
-        $this->exclusiveDirectory =trim($exclusiveDirectory,'/\\') ;
+        $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
     }
 
     /**
@@ -61,6 +61,7 @@ class ImageToolsService
     {
         return $this->imageName;
     }
+
     /**
      * @param mixed $finalImageName
      */
@@ -114,17 +115,68 @@ class ImageToolsService
      */
     public function setImageDirectory($imageDirectory): void
     {
-        $this->imageDirectory =trim($imageDirectory,'/\\') ;
+        $this->imageDirectory = trim($imageDirectory, '/\\');
     }
 
 
     /**
      * @return bool|null
+     * @noinspection PhpVoidFunctionResultUsedInspection
      */
     public function setCurrentImageName(): ?bool
     {
         return empty($this->image) ?
             false
-            : $this->setImageName(imageName: pathinfo($this->image->getClientOriginalName(),PATHINFO_FILENAME));
+            : $this->setImageName(imageName: pathinfo($this->image->getClientOriginalName(), PATHINFO_FILENAME));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExclusiveDirectory()
+    {
+        return $this->exclusiveDirectory;
+    }
+
+    protected function checkDirectory($imageDirectory): void
+    {
+        if (file_exists($imageDirectory)) {
+            mkdir($imageDirectory, 666, true);
+        }
+    }
+
+    public function getImageAddress(): string
+    {
+        return $this->finalImageDirectory . DIRECTORY_SEPARATOR . $this->finalImageName;
+    }
+
+    public function provider(): void
+    {
+        //set properties
+        //check Image directory exist
+            $this->getImageDirectory() ??
+            $this->setImageDirectory(
+                date('Y')
+                . DIRECTORY_SEPARATOR . date('m')
+                . DIRECTORY_SEPARATOR . date('d'));
+        //check Image name exist
+            $this->getImageName() ??
+            $this->setImageName(time());;
+        //check Image name exist
+            $this->getImageFormat() ??
+            $this->setImageName($this->image->extension());;
+
+        //set final image Directory
+        $finalImageDirectory =
+            $this->getExclusiveDirectory() ?
+                $this->getExclusiveDirectory() . DIRECTORY_SEPARATOR . $this->getImageDirectory() :
+                $this->getImageDirectory();
+        $this->setFinalImageDirectory($finalImageDirectory);
+
+        //set final image name
+        $this->setFinalImageName($this->getImageName() . "." . $this->getImageFormat());
+
+        //check and create final image directory
+        $this->checkDirectory($this->getFinalImageDirectory());
     }
 }
