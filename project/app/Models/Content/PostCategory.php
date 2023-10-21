@@ -21,4 +21,5 @@ class PostCategory extends Model
             ]
         ];
     }
+    protected $casts=['image'=>'array'];
 }

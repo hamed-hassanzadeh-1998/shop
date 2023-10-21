@@ -13,45 +13,28 @@ class ImageToolsService
     protected $finalImageDirectory;
     protected $finalImageName;
 
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image): void
+    public function setImage($image)
     {
         $this->image = $image;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getImage()
+    public function getExclusiveDirectory()
     {
-        return $this->image;
+        return $this->exclusiveDirectory;
     }
 
-    /**
-     * @param mixed $exclusiveDirectory
-     */
-    public function setExclusiveDirectory($exclusiveDirectory): void
+    public function setExclusiveDirectory($exclusiveDirectory)
     {
         $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
     }
 
-    /**
-     * @return mixed
-     */
     public function getImageDirectory()
     {
         return $this->imageDirectory;
     }
-
-
-    /**
-     * @param mixed $imageName
-     */
-    public function setImageName($imageName): void
+    public function setImageDirectory($imageDirectory)
     {
-        $this->imageName = $imageName;
+        $this->imageDirectory = trim($imageDirectory, '/\\');
     }
 
     /**
@@ -62,123 +45,88 @@ class ImageToolsService
         return $this->imageName;
     }
 
-    /**
-     * @param mixed $finalImageName
-     */
-    public function setFinalImageName($finalImageName): void
+     public function setImageName($imageName)
     {
-        $this->finalImageName = $finalImageName;
+        $this->imageName = $imageName;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getFinalImageName()
+    public function setCurrentImageName()
     {
-        return $this->finalImageName;
+            return !empty($this->image) ? $this->setImageName(pathinfo($this->image->getClientOriginalName(), PATHINFO_FILENAME)) : false;
+            // $_FILES['image']['name']
     }
 
-    /**
-     * @param mixed $imageFormat
-     */
-    public function setImageFormat($imageFormat): void
-    {
-        $this->imageFormat = $imageFormat;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getImageFormat()
     {
         return $this->imageFormat;
     }
 
-    /**
-     * @return mixed
-     */
+   public function setImageFormat($imageFormat)
+    {
+        $this->imageFormat = $imageFormat;
+    }
+
     public function getFinalImageDirectory()
     {
         return $this->finalImageDirectory;
     }
 
-    /**
-     * @param mixed $finalImageDirectory
-     */
-    public function setFinalImageDirectory($finalImageDirectory): void
+    public function setFinalImageDirectory($finalImageDirectory)
     {
         $this->finalImageDirectory = $finalImageDirectory;
     }
 
-    /**
-     * @param mixed $imageDirectory
-     */
-    public function setImageDirectory($imageDirectory): void
+   public function getFinalImageName()
     {
-        $this->imageDirectory = trim($imageDirectory, '/\\');
+        return $this->finalImageName;
     }
 
-
-    /**
-     * @return bool|null
-     * @noinspection PhpVoidFunctionResultUsedInspection
-     */
-    public function setCurrentImageName(): ?bool
+    public function setFinalImageName($finalImageName)
     {
-        return empty($this->image) ?
-            false
-            : $this->setImageName(imageName: pathinfo($this->image->getClientOriginalName(), PATHINFO_FILENAME));
+        $this->finalImageName = $finalImageName;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getExclusiveDirectory()
+    protected function checkDirectory($imageDirectory)
     {
-        return $this->exclusiveDirectory;
-    }
-
-    protected function checkDirectory($imageDirectory): void
-    {
-        if (file_exists($imageDirectory)) {
-            mkdir($imageDirectory, 666, true);
+        if(!file_exists($imageDirectory))
+        {
+            mkdir($imageDirectory, 0755, true);
         }
     }
 
-    public function getImageAddress(): string
+    public function getImageAddress()
     {
         return $this->finalImageDirectory . DIRECTORY_SEPARATOR . $this->finalImageName;
     }
 
-    public function provider(): void
+    protected function provider()
     {
         //set properties
-        //check Image directory exist
-            $this->getImageDirectory() ??
-            $this->setImageDirectory(
-                date('Y')
-                . DIRECTORY_SEPARATOR . date('m')
-                . DIRECTORY_SEPARATOR . date('d'));
-        //check Image name exist
-            $this->getImageName() ??
-            $this->setImageName(time());;
-        //check Image format exist
-            $this->getImageFormat() ??
-            $this->setImageName($this->image->extension());;
+        $this->getImageDirectory() ?? $this->setImageDirectory(date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d'));
+        $this->getImageName() ?? $this->setImageName(time());
+        $this->getImageFormat() ?? $this->setImageFormat($this->image->extension());
+
 
         //set final image Directory
-        $finalImageDirectory =
-        $finalImageDirectory = empty($this->getExclusiveDirectory()) ?
-            $this->getImageDirectory() :
-            $this->getExclusiveDirectory() . DIRECTORY_SEPARATOR . $this->getImageDirectory();
+        $finalImageDirectory = empty($this->getExclusiveDirectory()) ? $this->getImageDirectory() : $this->getExclusiveDirectory() . DIRECTORY_SEPARATOR . $this->getImageDirectory();
+        $this->setFinalImageDirectory($finalImageDirectory);
 
-        $this->setFinalImageDirectory($finalImageDirectory);
-        $this->setFinalImageDirectory($finalImageDirectory);
 
         //set final image name
-        $this->setFinalImageName($this->getImageName() . "." . $this->getImageFormat());
+        $this->setFinalImageName($this->getImageName() . '.' . $this->getImageFormat());
 
-        //check and create final image directory
+
+        //check adn create final image directory
         $this->checkDirectory($this->getFinalImageDirectory());
     }
+
+
+
+
+
+
+
+
+
+
 }

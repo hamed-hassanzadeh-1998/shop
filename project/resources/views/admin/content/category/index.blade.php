@@ -53,7 +53,7 @@
                                 <td>{{$postCategory->description}}</td>
                                 <td>{{$postCategory->slug}}</td>
                                 <td>
-                                    <img src="{{$postCategory->image}}" width="50" height="50" alt="">
+                                    <img src="{{asset($postCategory->image['indexArray'][$postCategory->image['currentImage']])}}" width="50" height="50" alt="">
                                 </td>
                                 <td>{{$postCategory->tags}}</td>
                                 <td>

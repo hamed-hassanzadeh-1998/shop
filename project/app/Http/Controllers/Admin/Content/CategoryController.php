@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Content\PostCategoryRequest;
+use App\Http\Services\Image\ImageService;
 use App\Models\Content\PostCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -34,13 +35,22 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PostCategoryRequest $request): RedirectResponse
+    public function store(PostCategoryRequest $request,ImageService $imageService): RedirectResponse
     {
         $inputs = $request->all();
-        $inputs['image'] = 'image';
+        if ($request->hasFile('image')){
+            $imageService->setExclusiveDirectory('images'.DIRECTORY_SEPARATOR.'post-category');
+            $result=$imageService->createIndexAndSave($request->file('image'));
+        }
+        if ($result===false)
+            return redirect()
+                ->route('admin.content.category.index')
+                ->with('swal-error', 'آپلود عکس با خطا مواجه شد.');
+        else
+         $inputs['image']=$result;
         PostCategory::create($inputs);
-        return redirect()->
-        route('admin.content.category.index')
+        return redirect()
+            ->route('admin.content.category.index')
             ->with('swal-success', 'دسته بندی جدید شما با موفقیت ثبت شد.');
     }
 
