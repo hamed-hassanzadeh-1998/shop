@@ -168,9 +168,11 @@ class ImageToolsService
 
         //set final image Directory
         $finalImageDirectory =
-            $this->getExclusiveDirectory() ?
-                $this->getExclusiveDirectory() . DIRECTORY_SEPARATOR . $this->getImageDirectory() :
-                $this->getImageDirectory();
+        $finalImageDirectory = empty($this->getExclusiveDirectory()) ?
+            $this->getImageDirectory() :
+            $this->getExclusiveDirectory() . DIRECTORY_SEPARATOR . $this->getImageDirectory();
+
+        $this->setFinalImageDirectory($finalImageDirectory);
         $this->setFinalImageDirectory($finalImageDirectory);
 
         //set final image name
