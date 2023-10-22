@@ -38,39 +38,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>چگونه از باتری موبایل حفاظت کنیم؟</td>
-                                <td>کالای الکترونیک</td>
-                                <td><img src="" alt="" class="max-height-2-rem"></td>
-                                <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>چگونه از باتری موبایل حفاظت کنیم؟</td>
-                                <td>کالای الکترونیک</td>
-                                <td><img src="" alt="" class="max-height-2-rem"></td>
-                                <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>چگونه از باتری موبایل حفاظت کنیم؟</td>
-                                <td>کالای الکترونیک</td>
-                                <td><img src="" alt="" class="max-height-2-rem"></td>
-                                <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
-                                </td>
-                            </tr>
+                            @foreach($posts as $key=>$post)
+                                <tr>
+                                    <th>{{$key +=1}}</th>
+                                    <td>{{$post->title}}</td>
+                                    <td>{{$post->postCategory->name}}</td>
+                                    <td>
+{{--                                        <img src="{{asset($post->image['indexArray'][$post->image['currentImage']])}}" width="50" height="50" alt="{{$post->name}}">--}}
+                                    </td>
+                                    <td class="width-16-rem text-left">
+                                        <a href="#" class="btn btn-sm btn-primary align-items-center"><i
+                                                class="fa fa-edit"></i> ویرایش </a>
+                                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+
                             </tbody>
                         </table>
                     </section>
