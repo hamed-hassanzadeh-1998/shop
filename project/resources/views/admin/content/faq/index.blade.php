@@ -53,10 +53,19 @@
                                     </label>
                                 </td>
                                 <td class="width-16-rem text-left">
-                                    <a href="{{route('admin.content.faq.edit',$faq->id)}}" class="btn btn-sm btn-primary align-items-center"><i
+                                    <a href="{{route('admin.content.faq.edit',$faq->id)}}"
+                                       class="btn btn-sm btn-primary align-items-center"><i
                                             class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
+                                    <form class="d-inline"
+                                          action="{{route('admin.content.faq.destroy',$faq->id)}}"
+                                          method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger delete"><i class="fa fa-trash-alt"></i> حذف
+                                        </button>
+                                    </form>
                                 </td>
+                            </tr>
                             </tr>
                             @endforeach
                             </tbody>
@@ -129,4 +138,5 @@
             }
         }
     </script>
+    @include('admin.alert.sweatalert.delete-confirm',['className'=>'delete'])
 @endsection

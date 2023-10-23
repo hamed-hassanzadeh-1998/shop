@@ -211,4 +211,5 @@
             }
         }
     </script>
+    @include('admin.alert.sweatalert.delete-confirm',['className'=>'delete'])
 @endsection
