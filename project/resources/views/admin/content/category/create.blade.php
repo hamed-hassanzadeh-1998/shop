@@ -70,6 +70,7 @@
                                     <div class="form-group">
                                         <label for="image">تصویر</label>
                                         <input id="image" type="file" name="image" class="form-control form-control-sm">
+
                                     </div>
                                     @error('image')
                                     <span class="alert_required bg-danger p-1 rounded text-white" role="alert">

@@ -206,6 +206,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/edit/{post}', [PostController::class, 'edit'])->name('admin.content.post.edit');
             Route::put('/update/{post}', [PostController::class, 'update'])->name('admin.content.post.update');
             Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('admin.content.post.destroy');
+            Route::get('/status/{post}', [PostController::class, 'status'])->name('admin.content.post.status');
+            Route::get('/commentable/{post}', [PostController::class, 'commentable'])->name('admin.content.post.commentable');
         });
     });
     //User

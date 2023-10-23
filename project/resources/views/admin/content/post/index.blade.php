@@ -34,6 +34,8 @@
                                 <th>عنوان پست</th>
                                 <th>دسته</th>
                                 <th>تصویر</th>
+                                <th>وضعیت</th>
+                                <th>امکان درج کامنت</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                             </thead>
@@ -46,10 +48,35 @@
                                     <td>
                                         <img src="{{asset($post->image['indexArray'][$post->image['currentImage']])}}" width="50" height="50" alt="{{$post->name}}">
                                     </td>
+                                    <td>
+                                        <label for="status">
+                                            <input
+                                                id="{{$post->id}}"
+                                                onchange="changeStatus({{$post->id}})"
+                                                type="checkbox" @if($post->status == 1) checked @endif
+                                                data-url="{{route('admin.content.post.status',$post->id)}}">
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="status">
+                                            <input
+                                                id="{{$post->id}}-commentable"
+                                                onchange="commentable({{$post->id}})"
+                                                type="checkbox" @if($post->commentable == 1) checked @endif
+                                                data-url="{{route('admin.content.post.commentable',$post->id)}}">
+                                        </label>
+                                    </td>
                                     <td class="width-16-rem text-left">
-                                        <a href="#" class="btn btn-sm btn-primary align-items-center"><i
+                                        <a href="{{route('admin.content.post.edit',$post->id)}}" class="btn btn-sm btn-primary align-items-center"><i
                                                 class="fa fa-edit"></i> ویرایش </a>
-                                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
+                                        <form class="d-inline"
+                                              action="{{route('admin.content.post.destroy',$post->id)}}"
+                                              method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger delete"><i class="fa fa-trash-alt"></i> حذف
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -62,4 +89,126 @@
         </section>
     </section>
 
+@endsection
+@section('script')
+    <script type="text/javascript">
+        function commentable(id) {
+            const element = $("#" + id+'-commentable')
+            const url = element.attr('data-url')
+            const elementValue = !element.prop('checked');
+
+            $.ajax({
+                url : url,
+                type : "GET",
+                success : function(response){
+                    if(response.commentable){
+                        if(response.checked){
+                            element.prop('checked', true);
+                            successToast('قابلیت کامنت گذاری برای پست با موفقیت فعال شد')
+                        }
+                        else{
+                            element.prop('checked', false);
+                            successToast('قابلیت کامنت گذاری برای پست با موفقیت غیر فعال شد')
+                        }
+                    }
+                    else{
+                        element.prop('checked', elementValue);
+                        errorToast('هنگام ویرایش مشکلی بوجود امده است')
+                    }
+                },
+                error : function(){
+                    element.prop('checked', elementValue);
+                    errorToast('ارتباط برقرار نشد')
+                }
+            });
+            function successToast(message){
+                const successToastTag= '<section class="toast" data-delay="5000">\n' +
+                    '<section class="toast-body py-3 d-flex bg-success text-white">\n' +
+                    '<strong class="ml-auto">' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(successToastTag)
+                $('.toast').toast('show').delay(5000).queue(function (){
+                    $(this).remove()
+                })
+            }
+            function errorToast(message){
+                const errorToastTag= '<section class="toast" data-delay="5000">\n' +
+                    '<section class="toast-body py-3 d-flex bg-danger text-white">\n' +
+                    '<strong class="ml-auto">' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(errorToastTag)
+                $('.toast').toast('show').delay(5000).queue(function (){
+                    $(this).remove()
+                })
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        function changeStatus(id) {
+            const element = $("#" + id)
+            const url = element.attr('data-url')
+            const elementValue = !element.prop('checked');
+
+            $.ajax({
+                url : url,
+                type : "GET",
+                success : function(response){
+                    if(response.status){
+                        if(response.checked){
+                            element.prop('checked', true);
+                            successToast('پست با موفقیت فعال شد')
+                        }
+                        else{
+                            element.prop('checked', false);
+                            successToast('پست با موفقیت غیر فعال شد')
+                        }
+                    }
+                    else{
+                        element.prop('checked', elementValue);
+                        errorToast('هنگام ویرایش مشکلی بوجود امده است')
+                    }
+                },
+                error : function(){
+                    element.prop('checked', elementValue);
+                    errorToast('ارتباط برقرار نشد')
+                }
+            });
+            function successToast(message){
+                const successToastTag= '<section class="toast" data-delay="5000">\n' +
+                    '<section class="toast-body py-3 d-flex bg-success text-white">\n' +
+                    '<strong class="ml-auto">' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(successToastTag)
+                $('.toast').toast('show').delay(5000).queue(function (){
+                    $(this).remove()
+                })
+            }
+            function errorToast(message){
+                const errorToastTag= '<section class="toast" data-delay="5000">\n' +
+                    '<section class="toast-body py-3 d-flex bg-danger text-white">\n' +
+                    '<strong class="ml-auto">' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(errorToastTag)
+                $('.toast').toast('show').delay(5000).queue(function (){
+                    $(this).remove()
+                })
+            }
+        }
+    </script>
 @endsection
