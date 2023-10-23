@@ -44,7 +44,7 @@
                                     <td>{{$post->title}}</td>
                                     <td>{{$post->postCategory->name}}</td>
                                     <td>
-{{--                                        <img src="{{asset($post->image['indexArray'][$post->image['currentImage']])}}" width="50" height="50" alt="{{$post->name}}">--}}
+                                        <img src="{{asset($post->image['indexArray'][$post->image['currentImage']])}}" width="50" height="50" alt="{{$post->name}}">
                                     </td>
                                     <td class="width-16-rem text-left">
                                         <a href="#" class="btn btn-sm btn-primary align-items-center"><i

@@ -1,7 +1,8 @@
 @extends('admin.layouts.master')
+
 @section('head-tag')
-    <title>ایجاد پست جدید</title>
-    <link rel="stylesheet" href="{{asset('admin-assets/jalalidatepicker/persian-datepicker.min.css')}}">
+<title>ایجاد پست</title>
+<link rel="stylesheet" href="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.css') }}">
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">
@@ -106,19 +107,18 @@
                                     </span>
                                     @enderror
                                 </section>
-                                <section class="col-12 col-md-6 my-2">
+                                <section class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="publish_date">تاریخ انتشار</label>
-                                        <input name="publish_at" id="publish-date" type="text"
-                                               class="form-control form-control-sm d-none" readonly>
-                                        <input type="text" id="publish_date_view" class="form-control form-control-sm">
+                                        <label for="">تاریخ انتشار</label>
+                                        <input type="text" name="published_at" id="published_at" class="form-control form-control-sm d-none">
+                                        <input type="text" id="published_at_view" class="form-control form-control-sm">
                                     </div>
-                                    @error('publish_date')
-                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
-                                        <strong>
-                                            {{$message}}
-                                        </strong>
-                                    </span>
+                                    @error('published_at')
+                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
                                     @enderror
                                 </section>
                                 <section class="col-12 my-2">
@@ -184,45 +184,51 @@
 
 @endsection
 @section('script')
-    <script src="{{asset('admin-assets/ckeditor/ckeditor.js')}}"></script>
-    <script src="{{asset('admin-assets/jalalidatepicker/persian-date.min.js')}}"></script>
-    <script src="{{asset('admin-assets/jalalidatepicker/persian-datepicker.min.js')}}"></script>
-    <script>
-        CKEDITOR.replace('body')
-        CKEDITOR.replace('summary')
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#publish_date_view').persianDatepicker({
-                format:'YYYY/MM/DD',
-                altField: '#publish-date'
-            })
-        })
-    </script>
-    <script>
-        $(document).ready(function () {
-            let tags_input = $('#tags')
-            let select_tags = $('#select_tags')
 
-            let default_tags = tags_input.val()
-            let default_data = null
+    <script src="{{ asset('admin-assets/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('admin-assets/jalalidatepicker/persian-date.min.js') }}"></script>
+    <script src="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.js') }}"></script>
+    <script>
+        CKEDITOR.replace('body');
+        CKEDITOR.replace('summary');
+    </script>
 
-            if (tags_input.val() !== null && tags_input.val().length > 0) {
-                default_data = default_tags.split(',')
+    <script>
+            $(document).ready(function () {
+                $('#published_at_view').persianDatepicker({
+                    format: 'YYYY/MM/DD',
+                    altField: '#published_at'
+                })
+            });
+    </script>
+
+<script>
+    $(document).ready(function () {
+        var tags_input = $('#tags');
+        var select_tags = $('#select_tags');
+        var default_tags = tags_input.val();
+        var default_data = null;
+
+        if(tags_input.val() !== null && tags_input.val().length > 0)
+        {
+            default_data = default_tags.split(',');
+        }
+
+        select_tags.select2({
+            placeholder : 'لطفا تگ های خود را وارد نمایید',
+            tags: true,
+            data: default_data
+        });
+        select_tags.children('option').attr('selected', true).trigger('change');
+
+
+        $('#form').submit(function ( event ){
+            if(select_tags.val() !== null && select_tags.val().length > 0){
+                var selectedSource = select_tags.val().join(',');
+                tags_input.val(selectedSource)
             }
-
-            select_tags.select2({
-                placeholder: 'لطفا تگ های خود را وارد کنید.',
-                tags: true,
-                data: default_data,
-            })
-            select_tags.children('option').attr('selected', true).trigger('change')
-            $('#form').submit(function (event) {
-                if (select_tags.val() !== null && select_tags.val().length > 0) {
-                    let selected_source = select_tags.val().join(',');
-                    tags_input.val(selected_source);
-                }
-            })
         })
-    </script>
+    })
+</script>
+
 @endsection
