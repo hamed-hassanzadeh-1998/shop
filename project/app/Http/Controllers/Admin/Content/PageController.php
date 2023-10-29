@@ -37,7 +37,9 @@ class PageController extends Controller
      */
     public function store(PageRequest $request)
     {
-
+        $inputs=$request->all();
+        Page::create($inputs);
+        return redirect()->route('admin.content.page.index')->with('swal-success', 'محتوی جدید شما با موفقیت ثبت شد.');;
     }
 
     /**
@@ -53,15 +55,17 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        //
+        return view('admin.content.page.edit',compact('page'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,Page $page)
+    public function update(PageRequest $request,Page $page)
     {
-        //
+        $inputs=$request->all();
+        $page->update($inputs);
+        return redirect()->route('admin.content.page.index')->with('swal-success','محتوی مورد نظر شما با موفقیت ویرایش شد.');
     }
 
     /**
@@ -69,7 +73,8 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-        //
+        $page->delete();
+        return redirect()->route('admin.content.page.index')->with('swal-success','محتوی مورد نظر شما با موفقیت حذف شد.');
     }
     public function status(Page $page): JsonResponse
     {
