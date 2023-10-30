@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>ویرایش منوی </title>
+    <title>ویرایش منو</title>
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">
@@ -8,7 +8,7 @@
             <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">بخش محتوی</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">منو ها</a></li>
-            <li class="breadcrumb-item active font-size-12" aria-current="page"> ویرایش منوی  </li>
+            <li class="breadcrumb-item active font-size-12" aria-current="page"> ویرایش منو </li>
         </ol>
     </nav>
     <section class="row">
@@ -16,39 +16,73 @@
             <section class="main-body-container">
                 <section class="main-body-container-header">
                     <h5>
-                     منو
+                       منو
                     </h5>
                     <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                         <a href="{{route('admin.content.menu.index')}}" class="btn btn-info btn-sm rounded">بازگشت</a>
                     </section>
                     <section>
-                        <form action="{{route('admin.content.menu.update')}}" method="POST">
+                        <form action="{{route('admin.content.menu.update',$menu->id)}}" method="POST">
                             @csrf
-
+                            @method('PUT')
                             <section class="row">
                                 <section class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="">نام منو</label>
-                                        <input type="text" class="form-control form-control-sm">
+                                        <label for="name">نام منو</label>
+                                        <input type="text" id="name" name="name" value="{{old('name',$menu->name)}}" class="form-control form-control-sm">
                                     </div>
+                                    @error('name')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>{{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
                                 <section class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="">نام منوی والد</label>
-                                        <input type="text" class="form-control form-control-sm">
+                                        <label for="url">لینک منو</label>
+                                        <input type="text" name="url" id="url" value="{{old('url',$menu->url)}}" class="form-control form-control-sm">
                                     </div>
+                                    @error('url')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>{{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
                                 <section class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="">لینک منو</label>
-                                        <input type="text" class="form-control form-control-sm">
+                                        <label for="parent">نام منوی والد</label>
+                                        <select  name="parent_id" id="parent" class="form-control form-control-sm">
+                                            <option value="">منوی اصلی</option>
+                                            @foreach($parent_menus as $parent_menu)
+                                            <option
+                                                @if( old('parent_id',$menu->parent_id)===$parent_menu->id ) selected @endif
+                                            value="{{$parent_menu->id}}">{{$parent_menu->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                    @error('parent_id')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>{{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
-                                <section class="col-12 col-md-6">
+                                <section class="col-12 col-md-6 my-2">
                                     <div class="form-group">
-                                        <label for="">تصویر</label>
-                                        <input type="file" class="form-control form-control-sm">
+                                        <label for="status">وضعیت</label>
+                                        <select name="status" id="status" class="form-control form-control-sm">
+                                            <option value="0" @if(old('status',$menu->status)==0) selected @endif>غیرفعال</option>
+                                            <option value="1" @if(old('status',$menu->status)==1) selected @endif>فعال</option>
+                                        </select>
                                     </div>
+                                    @error('status')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>{{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
                                 <section class="col-12">
                                     <button class="btn btn-sm btn-primary">ثبت </button>

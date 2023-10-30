@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Content\MenuRequest;
 use App\Models\Content\Menu;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,17 +26,18 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('admin.content.menu.create');
+        $menus=Menu::query()->where('parent_id',null)->get();
+        return view('admin.content.menu.create',compact('menus'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(MenuRequest $request)
     {
         $inputs=$request->all();
         Menu::create($inputs);
-        return view('admin.content.menu.index')->with('swal-success','منوی مورد نظر شما با موفقیت اضافه شد');
+        return redirect()->route('admin.content.menu.index')->with('swal-success','منوی مورد نظر شما با موفقیت اضافه شد');
     }
 
     /**
@@ -51,17 +53,18 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        return view('admin.content.menu.edit','menu');
+        $parent_menus=Menu::query()->where('parent_id',null)->get()->except($menu->id);
+        return view('admin.content.menu.edit',compact('menu','parent_menus'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Menu $menu)
+    public function update(MenuRequest $request, Menu $menu)
     {
         $inputs=$request->all();
         $menu->update($inputs);
-        return redirect()->route('admin.content.menu.index')->with('swal-success','منوی مورد نظر شما با موفقیت حذف شد');
+        return redirect()->route('admin.content.menu.index')->with('swal-success','منوی مورد نظر شما با موفقیت ویرایش شد');
     }
 
     /**
