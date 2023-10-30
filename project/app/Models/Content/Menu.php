@@ -13,4 +13,15 @@ class Menu extends Model
     use HasFactory , SoftDeletes;
     protected $guarded=['id'];
 
+
+    public function parent()
+    {
+        return $this->belongsTo($this,'parent_id')->with('parent');
+    }
+
+    public function children()
+    {
+        return $this->hasMany($this,'parent_id')->with('children');
+    }
+
 }

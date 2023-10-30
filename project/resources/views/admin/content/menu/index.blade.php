@@ -43,7 +43,7 @@
                             <tr>
                                 <th>{{$key+=1}}</th>
                                 <td>{{$menu->name}}</td>
-                                <td>{{$menu->parent_id ? $menu->parent_id   : 'منوی اصلی'}}</td>
+                                <td>{{$menu->parent_id ? $menu->parent->name   : 'منوی اصلی'}}</td>
                                 <td>{{$menu->url}}</td>
                                 <td>
                                     <label for="status">
@@ -55,9 +55,17 @@
                                     </label>
                                 </td>
                                 <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
+                                    <a href="{{route('admin.content.menu.edit',$menu->id)}}"
+                                       class="btn btn-sm btn-primary align-items-center"><i
                                             class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
+                                    <form class="d-inline"
+                                          action="{{route('admin.content.menu.destroy',$menu->id)}}"
+                                          method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger delete"><i class="fa fa-trash-alt"></i> حذف
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
