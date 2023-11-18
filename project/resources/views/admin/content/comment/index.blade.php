@@ -31,6 +31,7 @@
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>نظر</th>
                                 <th>کد کاربر</th>
                                 <th>نویسنده نظر</th>
                                 <th>کد پست</th>
@@ -44,10 +45,11 @@
                             @foreach($comments as $key => $comment)
                                 <tr>
                                     <th>{{$key+=1}}</th>
+                                    <td>{{$comment->body}}</td>
                                     <td>{{$comment->author_id}}</td>
-                                    <td></td>
+                                    <td>{{$comment->user->FullName}}</td>
                                     <td>{{$comment->commentable_id}}</td>
-                                    <td>{{$comment->commentable_type}}</td>
+                                    <td>{{$comment->commentable->title}}</td>
                                     <td>{{$comment->approved ==1 ? 'تایید شده' : 'تایید نشده'}}</td>
                                     <td>
                                         <label for="status">
@@ -62,9 +64,9 @@
                                         <a href="{{route('admin.content.comment.show',$comment->id)}}" class="btn btn-sm btn-info align-items-center"><i
                                                 class="fa fa-eye"></i> نمایش </a>
                                         @if($comment->approved === 1 )
-                                        <button class="btn btn-sm btn-warning "><i class="fa fa-clock"></i> عدم تایید </button>
+                                        <a href="{{route('admin.content.comment.approved',$comment->id)}}" class="btn btn-sm btn-warning "><i class="fa fa-clock"></i> عدم تایید </a>
                                         @else
-                                        <button class="btn btn-sm btn-success"><i class="fa fa-check"></i> تایید </button>
+                                        <a href="{{route('admin.content.comment.approved',$comment->id)}}" class="btn btn-sm btn-success text-white"><i class="fa fa-check"></i> تایید </a>
                                         @endif
                                     </td>
                                 </tr>

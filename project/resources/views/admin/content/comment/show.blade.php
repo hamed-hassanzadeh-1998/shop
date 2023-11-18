@@ -29,7 +29,7 @@
 
             <section class="card mb-3">
                 <section class="card-header text-white bg-custom-yellow">
-                    کامران محمدی - 845362736
+                    {{$comment->user->FullName}} -{{$comment->user->id}}
                 </section>
                 <section class="card-body">
                     <h5 class="card-title">مشخصات کالا : ساعت هوشمند apple watch کد کالا : 8974938</h5>
