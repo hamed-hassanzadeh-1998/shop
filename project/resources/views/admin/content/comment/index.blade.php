@@ -32,6 +32,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>نظر</th>
+                                <th>پاسخ به</th>
                                 <th>کد کاربر</th>
                                 <th>نویسنده نظر</th>
                                 <th>کد پست</th>
@@ -45,7 +46,8 @@
                             @foreach($comments as $key => $comment)
                                 <tr>
                                     <th>{{$key+=1}}</th>
-                                    <td>{{$comment->body}}</td>
+                                    <td>{{Str::limit($comment->body,10)}}</td>
+                                    <td>{{$comment->parent_id ? Str::limit($comment->parent->body,10)  :''}}</td>
                                     <td>{{$comment->author_id}}</td>
                                     <td>{{$comment->user->FullName}}</td>
                                     <td>{{$comment->commentable_id}}</td>
