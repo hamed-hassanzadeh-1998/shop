@@ -21,7 +21,7 @@
                         فرم کالا
                     </h5>
                     <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                        <a href="{{route('admin.market.property.create')}}" class="btn btn-info btn-sm rounded">ایجاد فرم جدید</a>
+                        <a class="btn btn-info btn-sm rounded">ایجاد فرم جدید</a>
                         <div class="max-width-16-rem">
                             <input class="form-control form-text form-control-sm" type="text" placeholder="جستجو...">
                         </div>
@@ -31,46 +31,25 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>نام فرم</th>
-                                <th>فرم والد</th>
+                                <th>عنوان سایت</th>
+                                <th>توضیحات سایت</th>
+                                <th>کلمات کلیدی سایت</th>
+                                <th>لوگوی سایت</th>
+                                <th>آیکون سایت</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <th>1</th>
-                                <td>نمایشگر</td>
-                                <td>کالای الکترونیکی</td>
+                                <th>{{$setting->id}}</th>
+                                <td>{{$setting->title}}</td>
+                                <td>{{$setting->description}}</td>
+                                <td>{{$setting->keywords}}</td>
+                                <td>{{$setting->logo}}</td>
+                                <td>{{$setting->icon}}</td>
                                 <td class="width-22-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-warning align-items-center"><i
-                                            class="fa fa-edit"></i> ویژگی ها </a>
                                     <a href="#" class="btn btn-sm btn-primary align-items-center"><i
                                             class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>نمایشگر</td>
-                                <td>کالای الکترونیکی</td>
-                                <td class="width-22-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-warning align-items-center"><i
-                                            class="fa fa-edit"></i> ویژگی ها </a>
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>نمایشگر</td>
-                                <td>کالای الکترونیکی</td>
-                                <td class="width-22-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-warning align-items-center"><i
-                                            class="fa fa-edit"></i> ویژگی ها </a>
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
                                 </td>
                             </tr>
                             </tbody>
