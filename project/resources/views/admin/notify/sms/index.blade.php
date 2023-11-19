@@ -45,7 +45,7 @@
                                     <th>{{$key+=1}}</th>
                                     <td>{{$message->title}}</td>
                                     <td>{{$message->body}}</td>
-                                    <td>{{jalaliDate($message->published_at)}}</td>
+                                    <td>{{jalaliDate($message->published_at,'H:i:s Y-m-d')}}</td>
                                     <td>
                                         <label for="status">
                                             <input

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>ایجاد اطلاعیه ایمیلی</title>
+    <title>ویرایش اطلاعیه پیامکی</title>
     <link rel="stylesheet" href="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.css') }}">
 @endsection
 @section('content')
@@ -8,8 +8,8 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-12"><a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#">بخش اطلاع رسانی</a></li>
-            <li class="breadcrumb-item font-size-12"><a href="#">اطلاعیه ایمیلی</a></li>
-            <li class="breadcrumb-item active font-size-12" aria-current="page"> ایجاد اطلاعیه ایمیلی</li>
+            <li class="breadcrumb-item font-size-12"><a href="#">اطلاعیه پیامکی</a></li>
+            <li class="breadcrumb-item active font-size-12" aria-current="page"> ویرایش اطلاعیه پیامکی</li>
         </ol>
     </nav>
     <section class="row">
@@ -17,22 +17,22 @@
             <section class="main-body-container">
                 <section class="main-body-container-header">
                     <h5>
-                        اطلاعیه ایمیلی
+                        اطلاعیه پیامکی
                     </h5>
                     <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                        <a href="{{route('admin.notify.email.index')}}" class="btn btn-info btn-sm rounded">بازگشت</a>
+                        <a href="{{route('admin.notify.sms.index')}}" class="btn btn-info btn-sm rounded">بازگشت</a>
                     </section>
                     <section>
-                        <form action="{{route('admin.notify.email.store')}}" method="post">
+                        <form action="{{route('admin.notify.sms.update',$sms->id)}}" method="post">
+                            @method('PUT')
                             @csrf
                             <section class="row">
                                 <section class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="subject">عنوان ایمیل</label>
-                                        <input type="text" name="subject" id="subject"
-                                               class="form-control form-control-sm" value="{{old('subject')}}">
+                                        <label for="title">عنوان اطلاعیه</label>
+                                        <input type="text" id="title" name="title" class="form-control form-control-sm" value="{{old('title',$sms->title)}}">
                                     </div>
-                                    @error('subject')
+                                    @error('title')
                                     <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
                                         <strong>{{$message}}
                                         </strong>
@@ -43,8 +43,8 @@
                                     <div class="form-group">
                                         <label for="published_at">تاریخ انتشار</label>
                                         <input type="text" name="published_at" id="published_at"
-                                               class="form-control form-control-sm d-none">
-                                        <input type="text" id="published_at_view" class="form-control form-control-sm">
+                                               class="form-control form-control-sm d-none" value="{{$sms->published_at}}">
+                                        <input type="text" id="published_at_view" class="form-control form-control-sm" value="{{$sms->published_at}}">
                                     </div>
                                     @error('published_at')
                                     <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -58,8 +58,8 @@
                                     <div class="form-group">
                                         <label for="status">وضعیت</label>
                                         <select name="status" id="status" class="form-control form-control-sm">
-                                            <option value="0" @if(old('status')==0) selected @endif>غیرفعال</option>
-                                            <option value="1" @if(old('status')==1) selected @endif>فعال</option>
+                                            <option value="0" @if(old('status',$sms->status)==0) selected @endif>غیرفعال</option>
+                                            <option value="1" @if(old('status',$sms->status)==1) selected @endif>فعال</option>
                                         </select>
                                     </div>
                                     @error('status')
@@ -71,11 +71,9 @@
                                 </section>
                                 <section class="col-12">
                                     <div class="form-group">
-                                        <label for="body">متن ایمیل</label>
+                                        <label for="body">متن پیامک</label>
                                         <textarea name="body" class="form-control-sm form-control" id="body"
-                                                  rows="6">
-                                            {{old('body')}}
-                                        </textarea>
+                                                  rows="6">{{old('body',$sms->body)}}</textarea>
                                     </div>
                                     @error('body')
                                     <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
