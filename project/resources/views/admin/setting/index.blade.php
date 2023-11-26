@@ -45,10 +45,12 @@
                                 <td>{{$setting->title}}</td>
                                 <td>{{$setting->description}}</td>
                                 <td>{{$setting->keywords}}</td>
-                                <td>{{$setting->logo}}</td>
-                                <td>{{$setting->icon}}</td>
+                                <td>
+                                    <img src="{{asset($setting->logo)}}" width="50" height="50" alt="">
+                                </td>
+                                <td> <img src="{{asset($setting->icon)}}" width="50" height="50" alt=""></td>
                                 <td class="width-22-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
+                                    <a href="{{route('admin.setting.edit',$setting->id)}}" class="btn btn-sm btn-primary align-items-center"><i
                                             class="fa fa-edit"></i> ویرایش </a>
                                 </td>
                             </tr>
