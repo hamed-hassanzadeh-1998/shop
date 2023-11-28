@@ -99,10 +99,10 @@
                     if (response.status) {
                         if (response.checked) {
                             element.prop('checked', true);
-                            successToast('اطلاعیه ایمیلی با موفقیت فعال شد')
+                            successToast('فایل با موفقیت فعال شد')
                         } else {
                             element.prop('checked', false);
-                            successToast(' اطلاعیه ایمیلی با موفقیت غیر فعال شد')
+                            successToast(' فایل با موفقیت غیر فعال شد')
                         }
                     } else {
                         element.prop('checked', elementValue);
