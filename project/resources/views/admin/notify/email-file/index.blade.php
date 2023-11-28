@@ -61,11 +61,11 @@
                                         </label>
                                     </td>
                                     <td class="width-16-rem text-left">
-                                        <a href="{{route('admin.notify.email.edit',$email->id)}}"
+                                        <a href="{{route('admin.notify.email-file.edit',$file->id)}}"
                                            class="btn btn-sm btn-primary align-items-center"><i
                                                 class="fa fa-edit"></i> ویرایش </a>
                                         <form class="d-inline"
-                                              action="{{route('admin.notify.email.destroy',$email->id)}}"
+                                              action="{{route('admin.notify.email-file.destroy',$file->id)}}"
                                               method="POST">
                                             @csrf
                                             @method('DELETE')

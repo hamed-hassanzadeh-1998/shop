@@ -64,25 +64,49 @@ class EmailFileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(EmailFile $file,Email $email)
     {
-        //
+        return view('admin.notify.email-file.edit',compact('file','email'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(EmailFileRequest $request,EmailFile $file,FileService $fileService)
     {
-        //
+
+        $inputs = $request->all();
+        if ($request->hasFile('file')) {
+
+            if (!empty($file->file_path)){
+                $fileService->deleteFile($file->file_path);
+            }
+
+            $fileService->setExclusiveDirectory('files' . DIRECTORY_SEPARATOR . 'email-files');
+            $fileService->setFileSize($request->file('file'));
+            $fileSize = $fileService->getFileSize();
+            $result=$fileService->moveToPublic($request->file('file'));
+            $fileFormat=$fileService->getFileFormat();
+        }
+        if ($result===false)
+        {
+            return redirect()->route('admin.notify.email-file.index',$file->email->id)->with('swal-error','آپلود فایل با خطا مواجه شد');
+        }
+        $inputs['file_path']=$result;
+        $inputs['file_size']=$fileSize;
+        $inputs['file_type']=$fileFormat;
+
+        $file->update($inputs);
+        return redirect()->route('admin.notify.email-file.index',$file->email->id)->with('swal-success','ویرایش فایل با موفقیت انجام شد');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(EmailFile $file)
     {
-        //
+        $file->delete();
+        return redirect()->route('admin.notify.email-file.index',$file->email->id)->with('swal-success','حذف فایل با موفقیت صورت گرفت.');
     }
 
     public function status(EmailFile $file)

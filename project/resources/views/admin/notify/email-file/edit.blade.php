@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>ویرایش اطلاعیه ایمیلی</title>
+    <title>ایجاد اطلاعیه ایمیلی</title>
     <link rel="stylesheet" href="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.css') }}">
 @endsection
 @section('content')
@@ -9,7 +9,7 @@
             <li class="breadcrumb-item font-size-12"><a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#">بخش اطلاع رسانی</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#">اطلاعیه ایمیلی</a></li>
-            <li class="breadcrumb-item active font-size-12" aria-current="page"> ویرایش اطلاعیه ایمیلی</li>
+            <li class="breadcrumb-item active font-size-12" aria-current="page"> ویرایش فایل اطلاعیه ایمیلی</li>
         </ol>
     </nav>
     <section class="row">
@@ -17,69 +17,42 @@
             <section class="main-body-container">
                 <section class="main-body-container-header">
                     <h5>
-                        اطلاعیه ایمیلی
+                        ویرایش فایل اطلاعیه ایمیلی
                     </h5>
                     <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                        <a href="{{route('admin.notify.email.index')}}" class="btn btn-info btn-sm rounded">بازگشت</a>
+                        <a href="{{route('admin.notify.email-file.index',$file->email->id)}}"
+                           class="btn btn-info btn-sm rounded">بازگشت</a>
                     </section>
                     <section>
-                        <form action="{{route('admin.notify.email.update',$email->id)}}" method="post">
-                            @method('PUT')
+                        <form action="{{route('admin.notify.email-file.update',$file->id)}}" method="post" enctype="multipart/form-data">
                             @csrf
+                           @method('PUT')
                             <section class="row">
-                                <section class="col-12 col-md-6">
+                                <section class="col-12">
                                     <div class="form-group">
-                                        <label for="subject">عنوان ایمیل</label>
-                                        <input type="text" name="subject" id="subject"
-                                               class="form-control form-control-sm" value="{{old('subject',$email->subject)}}">
+                                        <label for="file">فایل</label>
+                                        <input id="file" type="file" name="file" class="form-control form-control-sm">
                                     </div>
-                                    @error('subject')
+                                    @error('file')
                                     <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
                                         <strong>{{$message}}
                                         </strong>
                                     </span>
-                                    @enderror
-                                </section>
-                                <section class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="published_at">تاریخ انتشار</label>
-                                        <input type="text" name="published_at" id="published_at"
-                                               class="form-control form-control-sm d-none" value="{{$email->published_at}}">
-                                        <input type="text" id="published_at_view" class="form-control form-control-sm"
-                                               value="{{$email->published_at}}">
-                                    </div>
-                                    @error('published_at')
-                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
                                     @enderror
                                 </section>
                                 <section class="col-12 my-2">
                                     <div class="form-group">
                                         <label for="status">وضعیت</label>
                                         <select name="status" id="status" class="form-control form-control-sm">
-                                            <option value="0" @if(old('status',$email->status)==0) selected @endif>غیرفعال</option>
-                                            <option value="1" @if(old('status',$email->status)==1) selected @endif>فعال</option>
+                                            <option value="0"
+                                                    @if(old('status',$file->status)==0) selected @endif>غیرفعال
+                                            </option>
+                                            <option value="1"
+                                                    @if(old('status',$file->status)==1) selected @endif>فعال
+                                            </option>
                                         </select>
                                     </div>
                                     @error('status')
-                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
-                                        <strong>{{$message}}
-                                        </strong>
-                                    </span>
-                                    @enderror
-                                </section>
-                                <section class="col-12">
-                                    <div class="form-group">
-                                        <label for="body">متن ایمیل</label>
-                                        <textarea name="body" class="form-control-sm form-control" id="body"
-                                                  rows="6">
-                                            {{old('body',$email->body)}}
-                                        </textarea>
-                                    </div>
-                                    @error('body')
                                     <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
                                         <strong>{{$message}}
                                         </strong>
@@ -96,23 +69,5 @@
             </section>
         </section>
     </section>
-
-@endsection
-@section('script')
-    <script src="{{ asset('admin-assets/jalalidatepicker/persian-date.min.js') }}"></script>
-    <script src="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('#published_at_view').persianDatepicker({
-                format: 'YYYY/MM/DD',
-                altField: '#published_at',
-                timePicker: {
-                    enabled: true,
-                    meridiem: {
-                        enabled: true
-                    }}
-            })
-        });
-    </script>
 
 @endsection
