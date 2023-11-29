@@ -157,12 +157,11 @@ return [
         "priority_id"               => "اولویت",
         "category_id"               => "دسته بندی",
         "tags"                      => "برچسب ها",
-        "summary"                      => "خلاصه",
-        "answer"                      => "پاسخ",
-        "question"                      => "سوال",
-        "url"                      => "آدرس صفحه",
-        "parent_id"                      => "منوی والد",
-        "subject"                      => "موضوع",
-
+        "summary"                   => "خلاصه",
+        "answer"                    => "پاسخ",
+        "question"                  => "سوال",
+        "url"                       => "آدرس صفحه",
+        "parent_id"                 => "منوی والد",
+        "subject"                   => "موضوع",
     ],
 ];

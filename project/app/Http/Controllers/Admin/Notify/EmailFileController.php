@@ -87,15 +87,15 @@ class EmailFileController extends Controller
             $fileSize = $fileService->getFileSize();
             $result=$fileService->moveToPublic($request->file('file'));
             $fileFormat=$fileService->getFileFormat();
+            $inputs['file_path']=$result;
+            $inputs['file_size']=$fileSize;
+            $inputs['file_type']=$fileFormat;
+
         }
         if ($result===false)
         {
             return redirect()->route('admin.notify.email-file.index',$file->email->id)->with('swal-error','آپلود فایل با خطا مواجه شد');
         }
-        $inputs['file_path']=$result;
-        $inputs['file_size']=$fileSize;
-        $inputs['file_type']=$fileFormat;
-
         $file->update($inputs);
         return redirect()->route('admin.notify.email-file.index',$file->email->id)->with('swal-success','ویرایش فایل با موفقیت انجام شد');
     }
