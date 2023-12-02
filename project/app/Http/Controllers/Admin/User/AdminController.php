@@ -34,12 +34,12 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AdminUserRequest $request,ImageService $imageService)
-    {$inputs = $request->all();
+   public function store(AdminUserRequest $request, ImageService $imageService)
+    {
+        $inputs = $request->all();
         if ($request->hasFile('profile_photo_path')) {
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'users');
             $result = $imageService->save($request->file('profile_photo_path'));
-
             if ($result === false) {
                 return redirect()->route('admin.user.admin-user.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
             }
@@ -62,17 +62,34 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        return view('admin.user.admin-user.edit',compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AdminUserRequest $request,User $user,ImageService $imageService)
     {
-        //
+        $inputs = $request->all();
+
+        if($request->hasFile('profile_photo_path'))
+        {
+            if(!empty($user->profile_photo_path))
+            {
+                $imageService->deleteImage($user->profile_photo_path);
+            }
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'users');
+            $result = $imageService->save($request->file('profile_photo_path'));
+            if($result === false)
+            {
+                return redirect()->route('admin.user.admin-user.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
+            }
+            $inputs['profile_photo_path'] = $result;
+        }
+        $user->update($inputs);
+        return redirect()->route('admin.user.admin-user.index')->with('swal-success', 'ادمین سایت شما با موفقیت ویرایش شد');
     }
 
     /**
@@ -80,8 +97,8 @@ class AdminController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('admin.content.category.index')->with('swal-success','ادمین شما با موفقیت حذف شد.');
+        $user->forceDelete();
+        return redirect()->route('admin.user.admin-user.index')->with('swal-success','ادمین شما با موفقیت حذف شد.');
 
     }
     public function status(User $user): JsonResponse

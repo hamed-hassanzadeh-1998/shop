@@ -71,11 +71,11 @@
 
                                     <td>{{$admin->user_type === 1 ?  'ادمین ' : 'کاربر عادی'}}</td>
                                     <td class="width-22-rem text-left">
-                                        <a href="{{route('admin.content.category.edit',$admin->id)}}"
+                                        <a href="{{route('admin.user.admin-user.edit',$admin->id)}}"
                                            class="btn btn-sm btn-primary align-items-center"><i
                                                 class="fa fa-edit"></i> ویرایش </a>
                                         <form class="d-inline"
-                                              action="{{route('admin.content.category.destroy',$admin->id)}}"
+                                              action="{{route('admin.user.admin-user.destroy',$admin->id)}}"
                                               method="POST">
                                             @csrf
                                             @method('DELETE')

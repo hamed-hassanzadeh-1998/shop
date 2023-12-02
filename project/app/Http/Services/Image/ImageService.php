@@ -63,7 +63,9 @@ class ImageService extends ImageToolsService
                     if($result)
                     $indexArray[$sizeAlias] = $this->getImageAddress();
                     else
+                    {
                         return false;
+                    }
 
             }
             $images['indexArray'] = $indexArray;
@@ -93,6 +95,7 @@ class ImageService extends ImageToolsService
         {
             return false;
         }
+
 
         $files = glob($directory . DIRECTORY_SEPARATOR . '*', GLOB_MARK);
         foreach($files as $file)
