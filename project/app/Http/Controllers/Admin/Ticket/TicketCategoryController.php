@@ -39,7 +39,7 @@ class TicketCategoryController extends Controller
     public function store(TicketCategoryRequest $request)
     {
         $inputs = $request->all();
-        $ticketCategory = TicketCategoryController::create($inputs);
+        $ticketCategory = TicketCategory::create($inputs);
         return redirect()->route('admin.ticket.category.index')->with('swal-success', 'دسته بندی جدید شما با موفقیت ثبت شد');
     }
 
