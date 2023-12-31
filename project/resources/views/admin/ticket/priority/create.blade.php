@@ -36,7 +36,7 @@
 
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
-                                <label for="name">نام دسته</label>
+                                <label for="name">نام اولویت</label>
                                 <input type="text" class="form-control form-control-sm" name="name" id="name" value="{{ old('name') }}">
                             </div>
                             @error('name')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Ticket;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Ticket\TicketPriorityRequest;
 use App\Models\Ticket\TicketPriority;
 use Illuminate\Http\Request;
 
