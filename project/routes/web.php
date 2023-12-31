@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Notify\SMSController;
 use App\Http\Controllers\Admin\Setting\SettingController;
+use App\Http\Controllers\Admin\Ticket\TicketAdminController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\User\AdminController;
@@ -316,6 +317,13 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
                 Route::get('/status/{ticketPriority}', [TicketPriorityController::class, 'status'])->name('admin.ticket.priority.status');
 
             });
+            // admin
+        Route::prefix('admin')->group(function(){
+            Route::get('/', [TicketAdminController::class, 'index'])->name('admin.ticket.admin.index');
+            Route::get('/set/{admin}', [TicketAdminController::class, 'set'])->name('admin.ticket.admin.set');
+        });
+
+
         //Ticket
         Route::prefix('ticket')->group(function () {
             Route::get('/new-tickets', [TicketController::class, 'newTickets'])->name('admin.ticket.newTickets');
