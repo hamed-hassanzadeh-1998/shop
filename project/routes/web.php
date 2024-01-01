@@ -325,18 +325,16 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         });
 
 
-        //Ticket
+        //Ticket main
         Route::prefix('ticket')->group(function () {
+            Route::get('/', [TicketController::class, 'index'])->name('admin.ticket');
             Route::get('/new-tickets', [TicketController::class, 'newTickets'])->name('admin.ticket.newTickets');
             Route::get('/open-tickets', [TicketController::class, 'openTickets'])->name('admin.ticket.openTickets');
             Route::get('/close-tickets', [TicketController::class, 'closeTickets'])->name('admin.ticket.closeTickets');
-            Route::get('/', [TicketController::class, 'index'])->name('admin.ticket');
             Route::get('/create', [TicketController::class, 'create'])->name('admin.ticket.create');
-            Route::get('/show', [TicketController::class, 'show'])->name('admin.ticket.show');
-            Route::post('/store', [TicketController::class, 'store'])->name('admin.ticket.store');
-            Route::get('/edit/{id}', [TicketController::class, 'edit'])->name('admin.ticket.edit');
-            Route::put('/update/{id}', [TicketController::class, 'update'])->name('admin.ticket.update');
-            Route::delete('/destroy/{id}', [TicketController::class, 'destroy'])->name('admin.ticket.destroy');
+            Route::get('/show/{ticket}', [TicketController::class, 'show'])->name('admin.ticket.show');
+            Route::post('/answer/{ticket}', [TicketController::class, 'answer'])->name('admin.ticket.answer');
+            Route::get('/change/{ticket}', [TicketController::class, 'change'])->name('admin.ticket.change');
         });
     });//tickets
     Route::prefix('setting')->namespace('Setting')->group(function (){

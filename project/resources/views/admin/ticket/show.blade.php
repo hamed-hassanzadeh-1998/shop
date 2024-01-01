@@ -29,23 +29,32 @@
 
             <section class="card mb-3">
                 <section class="card-header text-white bg-custom-blue">
-                    کامران محمدی - 845362736
+                    {{$ticket->user->full_name}} - {{$ticket->id}}
                 </section>
                 <section class="card-body">
-                    <h5 class="card-title">مشخصات کالا : ساعت هوشمند apple watch کد کالا : 8974938</h5>
-                    <p class="card-text">به نظر من ساعت خوبیه ولی تنها مشکلی که داره اینه که وزنش زیاده و زود شارژش تموم میشه!</p>
+                    <h5 class="card-title">موضوع : {{$ticket->subject}}</h5>
+                    <p class="card-text">{{$ticket->description}}</p>
                 </section>
             </section>
 
             <section>
-                <form action="" method="">
+                <form action="{{route('admin.ticket.answer',$ticket->id)}}" method="POST">
+                    @csrf
                     <section class="row">
                         <section class="col-12">
                             <div class="form-group">
-                                <label for="">پاسخ تیکت</label>
-                               <textarea class="form-control form-control-sm" rows="4"></textarea>
+                                <label for="description">پاسخ تیکت</label>
+                               <textarea id="description" class="form-control form-control-sm" name="description" rows="4">{{old('description')}}</textarea>
                             </div>
+                            @error('description')
+                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                            @enderror
                         </section>
+
                         <section class="col-12">
                             <button class="btn btn-primary btn-sm">ثبت</button>
                         </section>

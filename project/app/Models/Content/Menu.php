@@ -16,7 +16,12 @@ class Menu extends Model
 
     public function parent()
     {
-        return $this->belongsTo($this,'parent_id');
+        return $this->belongsTo($this,'parent_id')->with('parent');
+    }
+
+    public function children()
+    {
+        return $this->hasMany($this,'parent_id')->with('children');
     }
 
     public function answers()
