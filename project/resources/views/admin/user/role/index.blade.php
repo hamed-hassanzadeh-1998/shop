@@ -37,13 +37,19 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($roles as $role)
                             <tr>
-                                <th>1</th>
-                                <td>مدیر فروش</td>
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{$role->name}}</td>
                                 <td class="d-flex flex-column">
-                                     <span>1-مشاهده سفارشات</span>
-                                    <span>2-مشاهده پرداخت ها</span>
-                                    <span>3-مشاهده تخفیف ها</span>
+                                    @if(empty($role->permissions()->get()->toArray()))
+                                        <span class="text-danger">برای این نقش سطح دسترسی تعریف نشده است</span>
+                                    @else
+                                        @foreach($role->permissions as $permission)
+                                        <span class="text-success rounded">{{$permission->name}}</span>
+                                        @endforeach
+                                    @endif
+
                                 </td>
                                 <td class="width-22-rem text-left">
                                     <a href="#" class="btn btn-sm btn-success align-items-center"><i
@@ -53,6 +59,7 @@
                                     <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
                                 </td>
                             </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </section>
