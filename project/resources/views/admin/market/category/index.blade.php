@@ -18,7 +18,7 @@
             <section class="main-body-container">
                 <section class="main-body-container-header">
                     <h5>
-                        دسته بندی
+                        دسته بندی محصولات
                     </h5>
                     <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                         <a href="{{route('admin.market.category.create')}}" class="btn btn-info btn-sm rounded">ایجاد دسته بندی</a>
@@ -37,36 +37,27 @@
                             </tr>
                             </thead>
                             <tbody>
+
+                            @foreach($productCategories as $category)
                             <tr>
-                                <th>1</th>
-                                <td>نمایشگر</td>
-                                <td>کالای الکترونیکی</td>
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{$category->name}}</td>
+                                <td>{{$category->parent_id? $category->parent->name :'دسته اصلی'}}</td>
                                 <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
+                                    <a href="{{route('admin.market.category.edit',$category->id)}}" class="btn btn-sm btn-primary align-items-center"><i
                                             class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
+                                    <form class="d-inline"
+                                          action="{{route('admin.market.category.destroy',$category->id)}}"
+                                          method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger delete"><i class="fa fa-trash-alt"></i> حذف
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>نمایشگر</td>
-                                <td>کالای الکترونیکی</td>
-                                <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>نمایشگر</td>
-                                <td>کالای الکترونیکی</td>
-                                <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-primary align-items-center"><i
-                                            class="fa fa-edit"></i> ویرایش </a>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i> حذف </button>
-                                </td>
-                            </tr>
+                            @endforeach
+
                             </tbody>
                         </table>
                     </section>
@@ -75,4 +66,7 @@
         </section>
     </section>
 
+@endsection
+@section('script')
+@include('admin.alert.sweatalert.delete-confirm',['className'=>'delete'])
 @endsection
