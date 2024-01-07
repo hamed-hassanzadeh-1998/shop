@@ -21,9 +21,9 @@ class Brand extends Model
     }
 
     protected $casts = ['logo' => 'array'];
+    protected $table='brands';
 
-
-    protected $fillable = ['persian_name', 'original_name', 'slug', 'logo', 'status', 'tags'];
+    protected $guarded=['id'];
 
     public function products()
     {

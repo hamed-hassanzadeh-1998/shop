@@ -33,4 +33,9 @@ class Product extends Model
 
     }
 
+    public function metas()
+    {
+        return $this->hasMany(ProductMeta::class);
+    }
+
 }
