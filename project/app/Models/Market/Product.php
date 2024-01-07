@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductCategory extends Model
+class Product extends Model
 {
     use HasFactory,SoftDeletes,Sluggable;
 
@@ -22,18 +22,15 @@ class ProductCategory extends Model
     }
     protected $casts=['image'=>'array'];
 
-    public function parent()
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(ProductCategory::class,'parent_id')->with('parent');
+        return $this->belongsTo(ProductCategory::class);
+
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
 
     }
 
-    public function children()
-    {
-        return $this->hasMany(ProductCategory::class,'parent_id')->with('children');
-    }
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
 }

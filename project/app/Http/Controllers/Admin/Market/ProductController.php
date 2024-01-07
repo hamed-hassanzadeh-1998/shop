@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Market\ProductRequest;
+use App\Models\Market\Brand;
+use App\Models\Market\Product;
+use App\Models\Market\ProductCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +16,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.market.product.index');
+        $products = Product::query()
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(10);
+        return view('admin.market.product.index',compact('products'));
     }
 
     /**
@@ -20,15 +27,17 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.market.product.create');
+        $productCategories=ProductCategory::all();
+        $brands=Brand::all();
+        return view('admin.market.product.create',compact('productCategories','brands'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+
     }
 
     /**

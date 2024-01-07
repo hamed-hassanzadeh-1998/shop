@@ -31,6 +31,7 @@ return new class extends Migration
             $table->foreignId('brand_id')->constrained('brands')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('category_id')->constrained('product_categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamp('published_at');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
