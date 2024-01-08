@@ -288,6 +288,13 @@
                                 <section class="col-6 col-md-3">
                                     <div class="form-group">
                                         <input type="text" name="meta_key[{{ $meta->id }}]" class="form-control form-control-sm" value="{{ $meta->meta_key }}">
+                                        @error('meta_key.*')
+                                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                                        @enderror
                                     </div>
                                 </section>
 
@@ -295,6 +302,13 @@
                                     <div class="form-group">
                                         <input type="text" name="meta_value[]" class="form-control form-control-sm" value="{{ $meta->meta_value }}">
                                     </div>
+                                    @error('meta_value.*')
+                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                                    @enderror
                                 </section>
 
                             </section>
