@@ -22,22 +22,54 @@
                         <a href="{{route('admin.market.property.index')}}" class="btn btn-info btn-sm rounded">بازگشت</a>
                     </section>
                     <section>
-                        <form action="" method="">
+                        <form action="{{route('admin.market.property.store')}}" method="POST">
+                            @csrf
                             <section class="row">
                                 <section class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="">نام فرم</label>
-                                        <input type="text" class="form-control form-control-sm">
+                                        <label  for="name">نام فرم</label>
+                                        <input type="text" id="name" name="name" value="{{old('name')}}" class="form-control form-control-sm">
                                     </div>
+                                    @error('name')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>{{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
                                 <section class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="">فرم والد</label>
-                                        <select name="" id="" class="form-control form-control-sm">
-                                            <option value="">فرم را انتخاب کنید</option>
-                                            <option value="">وسایل الکترونیکی</option>
+                                        <label  for="unit">واحد اندازه گیری</label>
+                                        <input type="text" id="unit" name="unit" value="{{old('unit')}}" class="form-control form-control-sm">
+                                    </div>
+                                    @error('unit')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>{{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
+                                </section>
+                                <section class="col-12 col-md-6 my-2">
+                                    <div class="form-group">
+                                        <label for="category">دسته بندی ویژگی</label>
+                                        <select id="category" name="category_id" class="form-control form-control-sm">
+                                            <option value="">دسته بندی ویژگی را انتخاب نمایید</option>
+                                            @foreach($productCategories as $productCategory)
+                                                <option
+                                                    @if(old('category_id')==$productCategory->id) selected @endif
+                                                value="{{$productCategory->id}}">
+                                                    {{$productCategory->name}}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
+                                    @error('category_id')
+                                    <span class="alert_required bg-danger p-1 rounded text-white" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
                                 <section class="col-12">
                                     <button class="btn btn-sm btn-primary">ثبت </button>
