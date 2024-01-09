@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductColorController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\PropertyController;
+use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Admin\Market\StoreController;
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
@@ -151,6 +152,13 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/edit/{categoryAttribute}', [PropertyController::class, 'edit'])->name('admin.market.property.edit');
             Route::put('/update/{categoryAttribute}', [PropertyController::class, 'update'])->name('admin.market.property.update');
             Route::delete('/destroy/{categoryAttribute}', [PropertyController::class, 'destroy'])->name('admin.market.property.destroy');
+
+            Route::get('/value/{categoryAttribute}', [PropertyValueController::class, 'index'])->name('admin.market.value.index');
+            Route::get('/value/{categoryAttribute}/create', [PropertyValueController::class, 'create'])->name('admin.market.value.create');
+            Route::post('value/store/{categoryAttribute}', [PropertyValueController::class, 'store'])->name('admin.market.value.store');
+            Route::get('value/edit/{product}', [PropertyValueController::class, 'edit'])->name('admin.market.value.edit');
+            Route::put('value/edit/{product}', [PropertyValueController::class, 'update'])->name('admin.market.value.update');
+            Route::delete('/destroy/{product}/{value}', [PropertyValueController::class, 'destroy'])->name('admin.market.value.destroy');
         });
         //store
         Route::prefix('store')->group(function () {
