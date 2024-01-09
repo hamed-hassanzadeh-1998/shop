@@ -54,24 +54,36 @@ class PropertyValueController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(CategoryAttribute $categoryAttribute, CategoryValue $value)
     {
-        //
+        return view('admin.market.property.value.edit', compact('categoryAttribute', 'value'));
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryValueRequest $request ,CategoryAttribute $categoryAttribute, CategoryValue $value)
     {
-        //
+        $inputs = $request->all();
+        $inputs['value'] = json_encode(['value' => $request->value, 'price_increase' => $request->price_increase]);
+        $inputs['category_attribute_id'] = $categoryAttribute->id;
+        $value->update($inputs);
+        return redirect()->route('admin.market.value.index', $categoryAttribute->id)->with('swal-success', 'مقدار فرم کالای  شما با موفقیت ویرایش شد');
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(string $id)
+    public function destroy(CategoryAttribute $categoryAttribute, CategoryValue $value)
     {
-        //
+        $result = $value->delete();
+        return redirect()->route('admin.market.value.index', $categoryAttribute->id)->with('swal-success', 'مقدار فرم کالای  شما با موفقیت حذف شد');
     }
 }

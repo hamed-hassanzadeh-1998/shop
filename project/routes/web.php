@@ -154,11 +154,11 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/destroy/{categoryAttribute}', [PropertyController::class, 'destroy'])->name('admin.market.property.destroy');
 
             Route::get('/value/{categoryAttribute}', [PropertyValueController::class, 'index'])->name('admin.market.value.index');
-            Route::get('/value/{categoryAttribute}/create', [PropertyValueController::class, 'create'])->name('admin.market.value.create');
-            Route::post('value/store/{categoryAttribute}', [PropertyValueController::class, 'store'])->name('admin.market.value.store');
-            Route::get('value/edit/{product}', [PropertyValueController::class, 'edit'])->name('admin.market.value.edit');
-            Route::put('value/edit/{product}', [PropertyValueController::class, 'update'])->name('admin.market.value.update');
-            Route::delete('/destroy/{product}/{value}', [PropertyValueController::class, 'destroy'])->name('admin.market.value.destroy');
+            Route::get('/value/create/{categoryAttribute}', [PropertyValueController::class, 'create'])->name('admin.market.value.create');
+            Route::post('/value/store/{categoryAttribute}', [PropertyValueController::class, 'store'])->name('admin.market.value.store');
+            Route::get('/value/edit/{categoryAttribute}/{value}', [PropertyValueController::class, 'edit'])->name('admin.market.value.edit');
+            Route::put('/value/update/{categoryAttribute}/{value}', [PropertyValueController::class, 'update'])->name('admin.market.value.update');
+            Route::delete('/value/destroy/{categoryAttribute}/{value}', [PropertyValueController::class, 'destroy'])->name('admin.market.value.destroy');
         });
         //store
         Route::prefix('store')->group(function () {
