@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Models\Market\Product;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
@@ -12,7 +13,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        return view('admin.market.store.index');
+        $products=Product::orderBy('created_at','asc')->simplePaginate(15);
+        return view('admin.market.store.index',compact('products'));
     }
 
     /**

@@ -53,7 +53,7 @@
                                 <img src="{{ asset($product->image['indexArray'][$product->image['currentImage']] ) }}" alt="" width="100" height="50">
                             </td>
                             <td>{{ $product->price }} تومان</td>
-                            <td>کالا الکترونیکی</td>
+                            <td>{{$product->category->name}}</td>
                             <td class="width-8-rem text-left">
                                 <div class="dropdown">
                                     <a href="#" class="btn btn-success btn-sm btn-block dorpdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
