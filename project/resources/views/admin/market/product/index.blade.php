@@ -66,7 +66,7 @@
                                         <form action="{{route('admin.market.product.destroy',$product->id)}}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="dropdown-item text-right"><i class="fa fa-window-close"></i> حذف</button>
+                                            <button type="submit" class="dropdown-item text-right delete"><i class="fa fa-window-close"></i> حذف</button>
                                         </form>
                                     </div>
                                 </div>
@@ -83,5 +83,12 @@
         </section>
     </section>
 </section>
+
+@endsection
+
+@section('script')
+
+    @include('admin.alert.sweatalert.delete-confirm', ['className' => 'delete'])
+
 
 @endsection
