@@ -40,13 +40,14 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($payments as $payment)
                             <tr>
-                                <th>1</th>
-                                <td>52416865415</td>
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{}}</td>
                                 <td>ملت</td>
-                                <td>حامد حسن زاده</td>
-                                <td>تایید شده</td>
-                                <td>آنلاین</td>
+                                <td>{{$payment->user->full_name}}</td>
+                                <td>{{$payments->status}}</td>
+                                <td>@if($payment->type==0) آنلاین@elseif($payment->type==1) آفلاین@elseif($payment->type==2)پرداخت در محل @endif</td>
                                 <td class="width-22-rem text-left">
                                     <a href="#" class="btn btn-sm btn-info align-items-center"><i
                                             class="fa fa-edit"></i> مشاهده </a>
@@ -56,6 +57,7 @@
                                             class="fa fa-reply"></i> برگرداندن </a>
                                 </td>
                             </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </section>

@@ -3,10 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Market\Payment;
 use App\Models\Ticket\Ticket;
 use App\Models\Ticket\TicketAdmin;
 use App\Models\User\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -41,24 +46,29 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): string
     {
         return "{$this->first_name} {$this->last_name}";
     }
 
-    public function ticketAdmin()
+    public function ticketAdmin():HasOne
     {
         return $this->hasOne(TicketAdmin::class);
     }
 
-    public function tickets()
+    public function tickets():HasMany
     {
         return $this->hasMany(Ticket::class,'user_id');
     }
 
-    public function roles()
+    public function roles():BelongsToMany
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function payments():HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 
 }
