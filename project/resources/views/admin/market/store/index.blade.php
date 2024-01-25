@@ -51,9 +51,9 @@
                                     <td>{{$product->frozen_number}}</td>
                                     <td>{{$product->sold_number}}</td>
                                     <td class="width-22-rem text-left">
-                                        <a href="{{route('admin.market.store.addToStore')}}" class="btn btn-sm btn-primary align-items-center"><i
+                                        <a href="{{route('admin.market.store.addToStore',$product->id)}}" class="btn btn-sm btn-primary align-items-center"><i
                                                 class="fa fa-plus-circle"></i> افزایش موجودی </a>
-                                        <button class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> اصلاح موجودی </button>
+                                        <a href="{{ route('admin.market.store.edit', $product->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-trash-alt"></i> اصلاح موجودی</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Market\StoreRequest;
+use App\Http\Requests\Admin\Market\StoreUpdateRequest;
 use App\Models\Market\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class StoreController extends Controller
 {
@@ -20,17 +23,20 @@ class StoreController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function addToStore()
+    public function addToStore(Product $product)
     {
-        return view('admin.market.store.add-to-store');
+        return view('admin.market.store.add-to-store',compact('product'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request,Product $product)
     {
-        //
+        $product->marketable_number += $request->marketable_number;
+        $product->save();
+        Log::info("receiver => {$request->receiver}, deliverer => {$request->deliverer}, description => {$request->description}, add => {$request->marketable_number}");
+        return redirect()->route('admin.market.store.index')->with('swal-success','موارد مورد نظر با موفقیت ذخیره شد');
     }
 
     /**
@@ -44,17 +50,19 @@ class StoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        return view('admin.market.store.edit',compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreUpdateRequest $request, Product $product)
     {
-        //
+        $inputs = $request->all();
+        $product->update($inputs);
+        return redirect()->route('admin.market.store.index')->with('swal-success', 'موجودی  با موفقیت ویرایش شد');
     }
 
     /**
