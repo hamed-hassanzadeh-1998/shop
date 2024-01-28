@@ -43,17 +43,17 @@
                             @foreach($payments as $payment)
                             <tr>
                                 <th>{{$loop->iteration}}</th>
-                                <td>{{}}</td>
-                                <td>ملت</td>
+                                <td>{{$payment->paymentable->transaction_id??'-'}}</td>
+                                <td>{{$payment->paymentable->gateway??'-'}}</td>
                                 <td>{{$payment->user->full_name}}</td>
-                                <td>{{$payments->status}}</td>
+                                <td>@if($payment->status==0)  پرداخت نشده@elseif($payment->status==1) پرداخت شده@elseif($payment->status==2)باطل شده @else  بازگشت داده شده @endif</td>
                                 <td>@if($payment->type==0) آنلاین@elseif($payment->type==1) آفلاین@elseif($payment->type==2)پرداخت در محل @endif</td>
                                 <td class="width-22-rem text-left">
                                     <a href="#" class="btn btn-sm btn-info align-items-center"><i
                                             class="fa fa-edit"></i> مشاهده </a>
-                                    <a href="#" class="btn btn-sm btn-warning align-items-center"><i
+                                    <a href="{{route('admin.market.payment.canceled',$payment->id)}}" class="btn btn-sm btn-warning align-items-center"><i
                                             class="fa fa-window-close"></i> باطل کردن </a>
-                                    <a href="#" class="btn btn-sm btn-danger align-items-center"><i
+                                    <a href="{{route('admin.market.payment.returned',$payment->id)}}" class="btn btn-sm btn-danger align-items-center"><i
                                             class="fa fa-reply"></i> برگرداندن </a>
                                 </td>
                             </tr>
