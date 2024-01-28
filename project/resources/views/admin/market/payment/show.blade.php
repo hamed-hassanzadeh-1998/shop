@@ -35,10 +35,12 @@
                 </section>
                 <section class="card-body">
                     <h5 class="card-title"> مبلغ : {{ $payment->paymentable->amount }}</h5>
+                    <h5 class="card-title"> نوع پرداخت : @if($payment->type==0) آنلاین@elseif($payment->type==1) آفلاین@elseif($payment->type==2)پرداخت در محل @endif</h5>
                     <p class="card-text"> بانک : {{ $payment->paymentable->gateway ?? '-' }}</p>
                     <p class="card-text"> شماره پرداخت : {{ $payment->paymentable->transaction_id ?? '-' }}</p>
                     <p class="card-text"> تاریخ پرداخت : {{ jalaliDate($payment->paymentable->pay_date) ?? '-' }}</p>
                     <p class="card-text">  دریافت کننده : {{ $payment->paymentable->cash_receiver ?? '-' }}</p>
+                    <p class="card-text">  وضعیت پرداخت : @if($payment->status==0)  پرداخت نشده@elseif($payment->status==1) پرداخت شده@elseif($payment->status==2)باطل شده @else  بازگشت داده شده @endif</p>
                 </section>
             </section>
 
