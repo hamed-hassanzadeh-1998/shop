@@ -49,7 +49,7 @@
                                 <td>@if($payment->status==0)  پرداخت نشده@elseif($payment->status==1) پرداخت شده@elseif($payment->status==2)باطل شده @else  بازگشت داده شده @endif</td>
                                 <td>@if($payment->type==0) آنلاین@elseif($payment->type==1) آفلاین@elseif($payment->type==2)پرداخت در محل @endif</td>
                                 <td class="width-22-rem text-left">
-                                    <a href="#" class="btn btn-sm btn-info align-items-center"><i
+                                    <a href="{{route('admin.market.payment.show',$payment->id)}}" class="btn btn-sm btn-info align-items-center"><i
                                             class="fa fa-edit"></i> مشاهده </a>
                                     <a href="{{route('admin.market.payment.canceled',$payment->id)}}" class="btn btn-sm btn-warning align-items-center"><i
                                             class="fa fa-window-close"></i> باطل کردن </a>
