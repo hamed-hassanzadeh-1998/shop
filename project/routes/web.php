@@ -103,6 +103,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/coupon/create', [DiscountController::class, 'couponCreate'])->name('admin.market.discount.coupon.create');
             Route::post('/coupon/store', [DiscountController::class, 'couponStore'])->name('admin.market.discount.coupon.store');
             Route::get('/coupon/{coupon}/edit', [DiscountController::class, 'couponEdit'])->name('admin.market.discount.coupon.edit');
+            Route::put('/coupon/{coupon}/update', [DiscountController::class, 'couponUpdate'])->name('admin.market.discount.coupon.update');
+            Route::delete('/coupon/{coupon}/delete', [DiscountController::class, 'couponDestroy'])->name('admin.market.discount.coupon.destroy');
             Route::get('/common-discount', [DiscountController::class, 'commonDiscount'])->name('admin.market.discount.commonDiscount');
             Route::post('/common-discount/store', [DiscountController::class, 'commonDiscountStore'])->name('admin.market.discount.commonDiscount.store');
             Route::get('/common-discount/edit/{commonDiscount}', [DiscountController::class, 'commonDiscountEdit'])->name('admin.market.discount.commonDiscount.edit');

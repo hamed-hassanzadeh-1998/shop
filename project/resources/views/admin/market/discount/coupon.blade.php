@@ -60,8 +60,13 @@
                             <td>{{ jalaliDate($coupon->start_date) }}</td>
                             <td>{{ jalaliDate($coupon->end_date) }}</td>
                             <td class="width-16-rem text-left">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
+                            <td class="width-16-rem text-left">
+                                <a href="{{ route('admin.market.discount.coupon.edit', $coupon->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                <form class="d-inline" action="{{ route('admin.market.discount.coupon.destroy', $coupon->id) }}" method="post">
+                                    @csrf
+                                    {{ method_field('delete') }}
+                                    <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
+                                </form>
                             </td>
                         </tr>
 
@@ -74,5 +79,11 @@
         </section>
     </section>
 </section>
+
+@endsection
+@section('script')
+
+    @include('admin.alert.sweatalert.delete-confirm', ['className' => 'delete'])
+
 
 @endsection

@@ -28,7 +28,8 @@ class DiscountController extends Controller
 
     public function couponEdit(Coupon $coupon)
     {
-        return view('admin.market.discount.coupon-edit', compact('coupon'));
+        $users=User::all();
+        return view('admin.market.discount.coupon-edit', compact('coupon','users'));
     }
 
     public function couponStore(CouponRequest $request)
@@ -46,6 +47,25 @@ class DiscountController extends Controller
         return redirect()->route('admin.market.discount.coupon')->with('swal-success', 'کد تخفیف جدید شما با موفقیت ثبت شد');
     }
 
+    public function couponUpdate(CouponRequest $request,Coupon $coupon)
+    {
+        $inputs = $request->all();
+        //date fixed
+        $realTimestampStart = substr($request->start_date, 0, 10);
+        $inputs['start_date'] = date("Y-m-d H:i:s", (int)$realTimestampStart);
+        $realTimestampEnd = substr($request->end_date, 0, 10);
+        $inputs['end_date'] = date("Y-m-d H:i:s", (int)$realTimestampEnd);
+        if($inputs['type'] == 0){
+            $inputs['user_id'] = null;
+        }
+        $coupon->update($inputs);
+        return redirect()->route('admin.market.discount.coupon')->with('swal-success', 'کد تخفیف  شما با موفقیت ویرایش شد');
+    }
+    public function couponDestroy(Coupon $coupon)
+    {
+        $result = $coupon->delete();
+        return redirect()->route('admin.market.discount.coupon')->with('swal-success', ' تخفیف  شما با موفقیت حذف شد');
+    }
     public function commonDiscount()
     {
         $commonDiscounts = CommonDiscount::all();
