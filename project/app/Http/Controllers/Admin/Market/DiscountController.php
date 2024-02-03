@@ -28,7 +28,7 @@ class DiscountController extends Controller
 
     public function couponEdit(Coupon $coupon)
     {
-        return view('admin.market.discount.coupon-edit', compact('coupon '));
+        return view('admin.market.discount.coupon-edit', compact('coupon'));
     }
 
     public function couponStore(CouponRequest $request)
