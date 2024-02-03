@@ -42,6 +42,9 @@ class CouponRequest extends FormRequest
         return [
           'amount_type'=>'نوع کوپن',
           'amount'=>'میزان تخفیف',
+          'discount_ceiling'=>'حداکثر تخفیف',
+          'code'=>'کد تخفیف',
+          'user_id'=>'آیدی کاربر',
         ];
     }
 
