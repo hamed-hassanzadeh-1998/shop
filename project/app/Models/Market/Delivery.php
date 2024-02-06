@@ -13,5 +13,5 @@ class Delivery extends Model
     protected $table = 'delivery';
 
 
-    protected $fillable = ['name', 'amount', 'delivery_time', 'delivery_time_unit', 'status'];
+    protected $guarded = ['id'];
 }
