@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\market;
+namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
 use App\Models\Market\Order;
@@ -42,26 +42,19 @@ class OrderController extends Controller
         $orders = Order::all();
         return view('admin.market.order.index', compact('orders'));
     }
-    public function show()
+    public function show(Order $order)
     {
-        return view('admin.market.order.index');
+        return view('admin.market.order.show',compact('order'));
     }
 
     public function changeSendStatus(Order $order)
     {
-        switch ($order->delivery_status) {
-            case 0:
-                $order->delivery_status = 1;
-                break;
-            case 1:
-                $order->delivery_status = 2;
-                break;
-            case 2:
-                $order->delivery_status = 3;
-                break;
-            default :
-                $order->delivery_status = 0;
-        }
+        $order->delivery_status = match ($order->delivery_status) {
+            0 => 1,
+            1 => 2,
+            2 => 3,
+            default => 0,
+        };
         $order->save();
         return back();
     }
