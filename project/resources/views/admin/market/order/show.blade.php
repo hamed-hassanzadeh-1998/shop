@@ -1,38 +1,38 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-    <title>فاکتور سفارش</title>
+<title>فاکتور سفارش</title>
 @endsection
 
 @section('content')
 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
-            <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> فاکتور</li>
-        </ol>
-    </nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
+      <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> فاکتور</li>
+    </ol>
+  </nav>
 
 
-    <section class="row">
-        <section class="col-12">
-            <section class="main-body-container">
-                <section class="main-body-container-header">
-                    <h5>
-                        فاکتور
-                    </h5>
-                </section>
+  <section class="row">
+    <section class="col-12">
+        <section class="main-body-container">
+            <section class="main-body-container-header">
+                <h5>
+                 فاکتور
+                </h5>
+            </section>
 
-                <section class="table-responsive">
-                    <table class="table table-striped table-hover h-150px" id="printable">
-                        <thead>
+            <section class="table-responsive">
+                <table class="table table-striped table-hover h-150px" id="printable">
+                    <thead>
                         <tr>
                             <th>#</th>
                             <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
-                        </thead>
-                        <tbody>
+                    </thead>
+                    <tbody>
 
                         <tr class="table-primary">
                             <th>{{ $order->id }}</th>
@@ -48,7 +48,7 @@
                             </td>
                         </tr>
 
-                        <tr class="border-bottom">
+                           <tr class="border-bottom">
                             <th>نام مشتری</th>
                             <td class="text-left font-weight-bolder">
                                 {{ $order->user->fullName ?? '-' }}
@@ -105,13 +105,13 @@
                         <tr class="border-bottom">
                             <th>نوع پرداخت</th>
                             <td class="text-left font-weight-bolder">
-                                @if($order->payment_type == 0) آنلاین  @elseif ($order->payment_type == 1) آفلاین @else در محل @endif
+                                {{ $order->payment_type_value }}
                             </td>
                         </tr>
                         <tr class="border-bottom">
                             <th>وضعیت پرداخت</th>
                             <td class="text-left font-weight-bolder">
-                                @if($order->payment_status == 0) پرداخت نشده  @elseif ($order->payment_status == 1) پرداخت شده @elseif ($order->payment_status == 2) باطل شده @else برگشت داده شده @endif
+                                {{ $order->payment_status_value }}
                             </td>
                         </tr>
                         <tr class="border-bottom">
@@ -123,7 +123,7 @@
                         <tr class="border-bottom">
                             <th>وضعیت ارسال</th>
                             <td class="text-left font-weight-bolder">
-                                @if($order->delivery_status == 0) ارسال نشده  @elseif ($order->delivery_status == 1) درحال ارسال @elseif ($order->delivery_status == 2)  ارسال شده @else تحویل شده @endif
+                                {{ $order->delivery_status_value }}
                             </td>
                         </tr>
                         <tr class="border-bottom">
@@ -190,7 +190,7 @@
                         <tr class="border-bottom">
                             <th>وضعیت سفارش</th>
                             <td class="text-left font-weight-bolder">
-                                @if($order->order_status == 1) در انتظار تایید  @elseif ($order->order_status == 2)  تایید نشده @elseif ($order->order_status == 3) تایید شده @elseif ($order->order_status == 4) باطل شده @elseif($order->order_status == 5) مرجوع شده @else بررسی نشده @endif
+                                {{ $order->order_status_value }}
                             </td>
                         </tr>
 

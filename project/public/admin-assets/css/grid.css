@@ -39,7 +39,7 @@
 
 .header-notification {
     position: absolute;
-    left: 0;
+    left:30px;
     margin-top: .2rem;
     width: 16rem;
     background-color: white;
@@ -71,11 +71,12 @@
 }
 
 .header-comment {
-    position: absolute;
-    height: calc(100vh - 3.5rem);
-    width: 18rem;
-    background-color: #FFFFFF;
-    color: black;
+     position: absolute;
+    right: -49px;
+    margin-top: .2rem;
+    width: 16rem;
+    background-color: white;
+    color: #000000;
     box-shadow: 0 1px 20px 0 rgba(70, 90, 100, 0.08);
     border-right: 1px solid rgba(0, 0, 0, 0.125);
     display: none;

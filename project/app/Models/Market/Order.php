@@ -47,4 +47,46 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+
+    public function getPaymentStatusValueAttribute():string
+    {
+        return match ($this->payment_status) {
+            0 => 'پرداخت نشده',
+            1 => 'پرداخت شده',
+            2 => 'باطل شده',
+            default => 'برگشت داده شده',
+        };
+    }
+
+    public function getPaymentTypeValueAttribute():string
+    {
+        return match ($this->payment_type) {
+            0 => 'آنلاین',
+            1 => 'آفلاین',
+            default => 'در محل',
+        };
+    }
+
+    public function getDeliveryStatusValueAttribute():string
+    {
+        return match ($this->delivery_status) {
+            0 => 'ارسال نشده',
+            1 => 'در حال ارسال',
+            2 => 'ارسال شده',
+            default => 'تحویل شده',
+        };
+    }
+    public function getOrderStatusValueAttribute()
+    {
+        return match ($this->order_status) {
+            1 => 'در انتظار تایید',
+            2 => 'تاییده نشده',
+            3 => 'تایید شده',
+            4 => 'باطل شده',
+            5 => 'مرجوع شده',
+            default => 'بررسی نشده',
+        };
+    }
+
 }
