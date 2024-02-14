@@ -26,7 +26,7 @@ class ProductCategory extends Model
 
     public function parent():BelongsTo
     {
-        return $this->belongsTo(ProductCategory::class,'parent_id')->with('parent')->cascadeOnDelete();
+        return $this->belongsTo(ProductCategory::class,'parent_id')->with('parent');
 
     }
 
