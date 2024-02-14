@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\User\AdminController;
 use App\Http\Controllers\Admin\User\CustomerController;
 use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\User\RoleController;
+use App\Http\Controllers\Auth\Customer\loginRegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -386,6 +387,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         });
     });
     Route::post('/notification/read-all', [NotificationController::class, 'readAll'])->name('admin.notification.readAll');
+});
+
+Route::namespace('Auth')->group(function (){
+    Route::get('/login-register',[loginRegisterController::class,'loginRegisterForm'])->name('auth.customer.login-register-form');
 });
 
 Route::get('/',function (){
