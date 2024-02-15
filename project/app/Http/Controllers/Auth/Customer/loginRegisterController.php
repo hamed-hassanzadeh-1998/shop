@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
+use App\Models\Otp;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class loginRegisterController extends Controller
 {
@@ -26,7 +28,8 @@ class loginRegisterController extends Controller
             if (empty($user)) {
                 $newUser['email'] = $inputs['id'];
             }
-        } elseif (preg_match('/^(\+98|98|0)9\d{9}$/', $inputs['id'])) {
+        }
+        elseif (preg_match('/^(\+98|98|0)9\d{9}$/', $inputs['id'])) {
             $type = 0; // 0 => mobile
 
             //all mobile numbers are on format 9** *** ** **
@@ -41,9 +44,28 @@ class loginRegisterController extends Controller
                 $newUser['mobile'] = $inputs['id'];
             }
 
-        }else{
+        }
+        else{
             $errorText='شناسه ورودی شما نه شماره موبایل است نه ایمیل';
             return redirect()->route('auth.customer.login-register-form')->withErrors(['id'=>$errorText]);
         }
+
+        if(empty($user)){
+            $newUser['password']='343944';
+            $newUser['activation']=1;
+            $user=User::create([$newUser]);
+        }
+
+        //create otp codes
+        $otpCode=rand(111111,999999);
+        $token=Str::random(60);
+        $otpInputs=[
+            'token'=>$token,
+            'user_id'=>$user->id,
+            'otp_code'=>$otpCode,
+            'login_id'=>$inputs['id'],
+            'type'=>$type,
+        ];
+        Otp::create($otpInputs);
     }
 }
