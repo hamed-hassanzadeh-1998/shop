@@ -67,5 +67,10 @@ class loginRegisterController extends Controller
             'type'=>$type,
         ];
         Otp::create($otpInputs);
+
+
+        if ($type==0){
+            //send sms
+        }
     }
 }
