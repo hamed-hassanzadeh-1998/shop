@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
+use App\Http\Services\Message\Email\EmailService;
 use App\Http\Services\message\MessageService;
 use App\Http\Services\message\SMS\SmsService;
 use App\Models\Otp;
@@ -85,12 +86,23 @@ class loginRegisterController extends Controller
                  * @required Parameters[] $parameters
                  * @returns VerifyResponse
                  */
-                $sendSms=$send->Verify("0" . $user->mobile, 100000, $parameters);
-            }catch (\Exception $e){
+                $sendSms = $send->Verify("0" . $user->mobile, 100000, $parameters);
+            } catch (\Exception $e) {
                 echo $e;
             }
-        }elseif ($type ===1){
+        } elseif ($type === 1) {
+            $emailService = new EmailService();
+            $details = [
+                'title' => 'ایمیل فعال سازی',
+                'body' => "کد فعال سازی شما :  $otpCode",
+            ];
+            $emailService->setDetails($details);
+            $emailService->setFrom('noreply@example.com','example');
+            $emailService->setSubject('کد احراز هویت');
+            $emailService->setTo($inputs['id']);
 
+            $messageService=new MessageService($emailService);
+            $messageService->send();
         }
 
 
