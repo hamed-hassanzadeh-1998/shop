@@ -4,10 +4,17 @@ namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
+use App\Http\Services\message\MessageService;
+use App\Http\Services\message\SMS\SmsService;
 use App\Models\Otp;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Cryptommer\Smsir\Objects\VerifyResponse;
+use Cryptommer\Smsir\Smsir;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Melipayamak;
+use Melipayamak\MelipayamakApi;
 
 class loginRegisterController extends Controller
 {
@@ -22,55 +29,70 @@ class loginRegisterController extends Controller
 
         //check id is email or not
         if (filter_var($inputs['id'], FILTER_VALIDATE_EMAIL)) {
-            $type = 1; // 1 =>email
+            $type = 1; // 1 => email
             $user = User::where('email', $inputs['id'])->first();
-
             if (empty($user)) {
                 $newUser['email'] = $inputs['id'];
             }
-        }
+        } //check id is mobile or not
         elseif (preg_match('/^(\+98|98|0)9\d{9}$/', $inputs['id'])) {
-            $type = 0; // 0 => mobile
+            $type = 0; // 0 => mobile;
 
-            //all mobile numbers are on format 9** *** ** **
-            $inputs['id']=ltrim($inputs['id'],'0');
-            $inputs['id']=substr($inputs['id'],0,2) == 98 ? substr($inputs['id'],0,2):$inputs['id'];
-            $inputs['id']=str_replace('+98',"",$inputs['id']);
 
-            $type = 1; // 1 =>email
+            // all mobile numbers are in on format 9** *** ***
+            $inputs['id'] = ltrim($inputs['id'], '0');
+            $inputs['id'] = substr($inputs['id'], 0, 2) === '98' ? substr($inputs['id'], 2) : $inputs['id'];
+            $inputs['id'] = str_replace('+98', '', $inputs['id']);
+
             $user = User::where('mobile', $inputs['id'])->first();
-
             if (empty($user)) {
                 $newUser['mobile'] = $inputs['id'];
             }
-
-        }
-        else{
-            $errorText='شناسه ورودی شما نه شماره موبایل است نه ایمیل';
-            return redirect()->route('auth.customer.login-register-form')->withErrors(['id'=>$errorText]);
+        } else {
+            $errorText = 'شناسه ورودی شما نه شماره موبایل است نه ایمیل';
+            return redirect()->route('auth.customer.login-register-form')->withErrors(['id' => $errorText]);
         }
 
-        if(empty($user)){
-            $newUser['password']='343944';
-            $newUser['activation']=1;
-            $user=User::create([$newUser]);
+        if (empty($user)) {
+            $newUser['password'] = '98355154';
+            $newUser['activation'] = 1;
+            $user = User::create($newUser);
         }
 
-        //create otp codes
-        $otpCode=rand(111111,999999);
-        $token=Str::random(60);
-        $otpInputs=[
-            'token'=>$token,
-            'user_id'=>$user->id,
-            'otp_code'=>$otpCode,
-            'login_id'=>$inputs['id'],
-            'type'=>$type,
+        //create otp code
+        $otpCode = rand(111111, 999999);
+        $token = Str::random(60);
+        $otpInputs = [
+            'token' => $token,
+            'user_id' => $user->id,
+            'otp_code' => $otpCode,
+            'login_id' => $inputs['id'],
+            'type' => $type,
         ];
+
         Otp::create($otpInputs);
 
+        //send sms or email
 
-        if ($type==0){
-            //send sms
+        if ($type == 0) {
+            try {
+                $send = smsir::Send();
+                $parameter = new \Cryptommer\Smsir\Objects\Parameters('Code', $otpCode);
+                $parameters = array($parameter);
+                /**
+                 * @required string $mobile
+                 * @required int $templateId
+                 * @required Parameters[] $parameters
+                 * @returns VerifyResponse
+                 */
+                $sendSms=$send->Verify("0" . $user->mobile, 100000, $parameters);
+            }catch (\Exception $e){
+                echo $e;
+            }
+        }elseif ($type ===1){
+
         }
+
+
     }
 }

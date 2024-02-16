@@ -2,8 +2,21 @@
 
 namespace App\Http\Services\message\SMS;
 
+use SoapClient;
+use SoapFault;
+
 class MelliPayamakService
 {
+
+    private $userName;
+    private $password;
+
+    public function __construct()
+    {
+        $this->password = \Config::get('sms.password');
+        $this->userName = \Config::get('sms.userName');
+    }
+
     public function addContact()
     {
         ini_set("soap.wsdl_cache_enabled", "0");
@@ -32,7 +45,6 @@ class MelliPayamakService
     }
 
 
-
     public function addSchedule()
     {
         ini_set("soap.wsdl_cache_enabled", "0");
@@ -40,7 +52,7 @@ class MelliPayamakService
 
         $parameters['username'] = "***";
         $parameters['password'] = "***";
-        $parameters['to'] =  "912***";
+        $parameters['to'] = "912***";
         $parameters['from'] = "3000***";
         $parameters['text'] = "Test";
         $parameters['isflash'] = false;
@@ -77,14 +89,13 @@ class MelliPayamakService
     }
 
 
-
     public function getMessageStr()
     {
         ini_set("soap.wsdl_cache_enabled", "0");
         $sms_client = new SoapClient('http://api.payamak-panel.com/post/Receive.asmx?wsdl', array('encoding' => 'UTF-8'));
         $parameters['username'] = "username";
         $parameters['password'] = "password";
-        $parameters['location'] =  1;
+        $parameters['location'] = 1;
         $parameters['from'] = "";
         $parameters['index'] = 0;
         $parameters['count'] = 10;
@@ -131,26 +142,33 @@ class MelliPayamakService
     }
 
 
-    public function sendSmsSoapClient()
+    public function sendSmsSoapClient($from, array $to, $text, $isFlash = true)
     {
 
         // turn off the WSDL cache
         ini_set("soap.wsdl_cache_enabled", "0");
         try {
-            $client = new SoapClient('http://api.payamak-panel.com/post/send.asmx?wsdl', array('encoding' => 'UTF-8'));
-            $parameters['username'] = "demo";
-            $parameters['password'] = "demo";
-            $parameters['from'] = "10000.";
-            $parameters['to'] = array("912...");
-            $parameters['text'] = "سلام";
-            $parameters['isflash'] = true;
+            $client = new \SoapClient('http://api.payamak-panel.com/post/send.asmx?wsdl', array('encoding' => 'UTF-8'));
+            $parameters['username'] = $this->userName;
+            $parameters['password'] = $this->password;
+            $parameters['from'] = $from;
+            $parameters['to'] = $to;
+            $parameters['text'] = $text;
+            $parameters['isflash'] = $isFlash;
             $parameters['udh'] = "";
             $parameters['recId'] = array(0);
             $parameters['status'] = 0x0;
-            echo $client->GetCredit(array("username" => "wsdemo", "password" => "wsdemo"))->GetCreditResult;
-            echo $client->SendSms($parameters)->SendSmsResult;
-            echo $status;
-        } catch (SoapFault $ex) {
+            $GetCreditResult = $client->GetCredit(array("username" => $this->userName, "password" => $this->password))->GetCreditResult;
+            $sendSmsResult = $client->SendSms($parameters)->SendSmsResult;
+
+            if($GetCreditResult == 0 && $sendSmsResult == 1){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+        } catch (\SoapFault $ex) {
             echo $ex->faultstring;
         }
     }

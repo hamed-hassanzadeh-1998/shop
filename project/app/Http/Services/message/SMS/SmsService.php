@@ -15,6 +15,7 @@ class SmsService implements MessageInterface
     public function fire()
     {
         $melliPayamak=new MelliPayamakService();
+       return $melliPayamak->sendSmsSoapClient($this->from,$this->to,$this->text,$this->isFlash);
     }
 
     /**

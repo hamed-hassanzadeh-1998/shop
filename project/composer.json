@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-soap": "*",
+        "cryptommer/smsir": "^1.1",
         "cviebrock/eloquent-sluggable": "^10.0",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
@@ -14,6 +16,8 @@
         "laravel/jetstream": "^4.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "melipayamak/laravel": "1.0.0",
+        "melipayamak/php": "1.0.0",
         "morilog/jalali": "^3.4"
     },
     "require-dev": {
