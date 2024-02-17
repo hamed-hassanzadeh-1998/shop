@@ -97,7 +97,7 @@ class loginRegisterController extends Controller
                 'body' => "کد فعال سازی شما :  $otpCode",
             ];
             $emailService->setDetails($details);
-            $emailService->setFrom('noreply@example.com','example');
+            $emailService->setFrom('noreply@example.com','hamedshop');
             $emailService->setSubject('کد احراز هویت');
             $emailService->setTo($inputs['id']);
 
