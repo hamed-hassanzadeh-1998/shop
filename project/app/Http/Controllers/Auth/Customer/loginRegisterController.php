@@ -97,14 +97,23 @@ class loginRegisterController extends Controller
                 'body' => "کد فعال سازی شما :  $otpCode",
             ];
             $emailService->setDetails($details);
-            $emailService->setFrom('noreply@example.com','hamedshop');
+            $emailService->setFrom('noreply@example.com', 'hamedshop');
             $emailService->setSubject('کد احراز هویت');
             $emailService->setTo($inputs['id']);
 
-            $messageService=new MessageService($emailService);
+            $messageService = new MessageService($emailService);
             $messageService->send();
         }
+        return redirect()->route('auth.customer.login-confirm-form', $token);
+    }
 
-
+    public function loginConfirmForm($token)
+    {
+        $otp = Otp::where('token', $token)->first();
+        if(empty($otp))
+        {
+            return redirect()->route('auth.customer.login-register-form')->withErrors(['id' => 'آدرس وارد شده نامعتبر میباشد']);
+        }
+        return view('customer.auth.login-confirm', compact('token', 'otp'));
     }
 }
