@@ -391,10 +391,11 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
 Route::namespace('Auth')->group(function (){
     Route::get('/login-register',[loginRegisterController::class,'loginRegisterForm'])->name('auth.customer.login-register-form');
-    Route::post('/login-register',[loginRegisterController::class,'loginRegister'])->name('auth.customer.login-register');
+    Route::middleware('throttle:customer-login-register-limiter')->post('/login-register',[loginRegisterController::class,'loginRegister'])->name('auth.customer.login-register');
     Route::get('/login-confirm/{token}',[loginRegisterController::class,'loginConfirmForm'])->name('auth.customer.login-confirm-form');
-    Route::post('/login-register/{token}',[loginRegisterController::class,'loginConfirm'])->name('auth.customer.login-confirm');
-    Route::get('/login-resend-otp/{token}',[loginRegisterController::class,'loginResendOtp'])->name('auth.customer.login-resend-otp');
+    Route::middleware('throttle:customer-login-confirm-limiter')->post('/login-confirm/{token}',[loginRegisterController::class,'loginConfirm'])->name('auth.customer.login-confirm');
+    Route::middleware('throttle:customer-login-resend-otp-limiter')->get('/login-resend-otp/{token}',[loginRegisterController::class,'loginResendOtp'])->name('auth.customer.login-resend-otp');
+    Route::get('/logout',[loginRegisterController::class,'logOut'])->name('auth.customer.logout');
 });
 
 Route::get('/',function (){
